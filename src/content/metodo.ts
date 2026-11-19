@@ -4,25 +4,25 @@ import type { PuntoMetodo } from "@/types"
 export const metodo: PuntoMetodo[] = [
   {
     icono: "pruebas",
-    titulo: "Pruebas antes de liberar",
+    titulo: "Calidad antes de liberar",
     descripcion:
-      "Pruebas funcionales, de regresión, smoke y aceptación de usuario (UAT).",
+      "Pruebo cada cambio antes de publicarlo: pruebas funcionales, de regresión y validación con el usuario final (UAT).",
   },
   {
     icono: "datos",
     titulo: "APIs y datos",
     descripcion:
-      "Pruebas y diagnóstico con Postman, validación con SQL y revisión de registros.",
+      "Pruebo y depuro APIs con Postman, y valido la información directo en la base de datos con SQL.",
   },
   {
     icono: "organizacion",
-    titulo: "Organización",
-    descripcion: "Seguimiento de tareas e incidencias en Jira y documentación en Notion.",
+    titulo: "Orden y documentación",
+    descripcion: "Tareas e incidencias en Jira y documentación técnica en Notion.",
   },
   {
     icono: "produccion",
     titulo: "Producción",
     descripcion:
-      "Despliegues en Vercel y DigitalOcean, monitoreo y causa raíz documentada.",
+      "Despliegues con Git en Vercel y DigitalOcean. Si algo falla, encuentro la causa raíz y la dejo documentada.",
   },
 ]

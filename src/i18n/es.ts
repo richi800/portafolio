@@ -3,7 +3,7 @@ export const es = {
   meta: {
     titulo: "Ricardo Rivas Rosado · Desarrollador Full Stack Freelance en Mérida",
     descripcion:
-      "Desarrollador Full Stack freelance en Mérida, Yucatán. Construyo tiendas en línea y sistemas a medida con Next.js, React y Laravel. Disponible para nuevos proyectos.",
+      "Desarrollador Full Stack en Mérida, Yucatán. Tiendas en línea, sistemas a medida e integraciones con Next.js, React, TypeScript y Laravel. Disponible para proyectos freelance y nuevas oportunidades.",
   },
   nav: {
     saltar: "Saltar al contenido",
@@ -31,25 +31,25 @@ export const es = {
   destacados: {
     titulo: "Proyectos destacados",
     intro:
-      "Sistemas que construí y mantengo en producción, contados como caso de estudio.",
+      "Proyectos reales que diseñé y desarrollé, y que hoy están en producción. Cada uno contado como caso de estudio.",
     verTodos: "Ver todos los proyectos",
   },
   servicios: {
     titulo: "Servicios",
     intro:
-      "En qué te puedo ayudar, desde el primer commit hasta el soporte en producción.",
+      "En qué te puedo ayudar: desde la primera versión hasta el mantenimiento en producción.",
     incluye: "Incluye",
     cotizar: "Cotizar proyecto",
   },
   comoTrabajo: {
     titulo: "Cómo trabajo",
     intro:
-      "Vengo de soporte y QA, así que no solo programo: pruebo antes de liberar y doy soporte en producción.",
+      "Mis años en soporte me enseñaron lo que pasa cuando algo falla en producción. Por eso pruebo antes de liberar y sigo ahí después del lanzamiento.",
   },
   trayectoria: {
     titulo: "De la operación al código",
     intro:
-      "Empecé resolviendo problemas de soporte e infraestructura; hoy construyo los sistemas.",
+      "Empecé resolviendo incidencias de soporte e infraestructura; hoy diseño y construyo los sistemas.",
     educacion: "Educación",
     despues: "después",
   },
@@ -58,12 +58,12 @@ export const es = {
   },
   habilidades: {
     titulo: "Habilidades",
-    intro: "Las herramientas con las que trabajo a diario.",
+    intro: "Tecnologías que uso en proyectos reales, en producción.",
   },
   contacto: {
     titulo: "¿Tienes un proyecto en mente?",
     intro:
-      "Cuéntame qué necesitas: una tienda en línea, un sistema a medida o soporte para lo que ya tienes. Lo platicamos sin compromiso.",
+      "Una tienda en línea, un sistema a medida, una integración o una vacante en tu equipo: cuéntame qué necesitas y lo platicamos.",
     whatsapp: "Escribir por WhatsApp",
     correo: "Enviar correo",
     github: "GitHub",

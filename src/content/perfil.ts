@@ -6,11 +6,11 @@ export const perfil: Perfil = {
   titulo: "Desarrollador Full Stack",
   stack: ["Next.js", "React", "TypeScript", "Laravel"],
   presentacion:
-    "Construyo tiendas en línea, sistemas a medida e integraciones que funcionan en producción, y los pruebo antes de que lleguen a tus usuarios.",
+    "Desarrollo aplicaciones web completas: frontend, backend, base de datos e integraciones con APIs. Hoy mantengo tres sistemas en producción, del código al servidor.",
   bio: [
-    "Soy desarrollador Full Stack enfocado en aplicaciones web, comercio electrónico e integraciones entre sistemas.",
-    "Empecé en 2019 en el área de TI, coordinando soporte e infraestructura, y fui creciendo hacia el desarrollo. Esa base me hace entender la operación real del negocio y a sus usuarios.",
-    "Hoy desarrollo y mantengo soluciones completas: desde el código hasta el despliegue, el servidor y el soporte en producción.",
+    "Soy desarrollador Full Stack. Construyo comercio electrónico, sistemas internos e integraciones entre plataformas con Next.js, React, TypeScript, Node.js y Laravel.",
+    "Llegué al desarrollo desde TI: en 2019 empecé coordinando soporte e infraestructura y fui pasando a programar funcionalidades e integraciones. Por eso pienso en cómo se usa un sistema en el día a día, no solo en cómo se programa.",
+    "Hoy me hago cargo de proyectos de principio a fin: requerimientos, código, base de datos, despliegue, servidor Linux y soporte después del lanzamiento.",
   ],
   datos: [
     { termino: "Ubicación", valor: "Mérida, Yucatán, México" },
@@ -25,10 +25,10 @@ export const perfil: Perfil = {
   ],
   disponibilidad: "Disponible para proyectos freelance",
   foto: {
-    src: "/images/perfil/ricardo-rivas-retrato.webp",
-    alt: "Retrato de Ricardo Rivas Rosado con saco y suéter negros, mirando a la cámara, sobre fondo gris",
+    src: "/images/perfil/ricardo-rivas-perfil.webp",
+    alt: "Retrato de Ricardo Rivas Rosado con saco y playera negros, mirando a la cámara, sobre un muro gris",
     // Centro del rostro en la foto original: los recortes cerrados hacen zoom aquí.
-    foco: "46% 40%",
+    foco: "50% 42%",
   },
   correo: "ricardo.rivas.rosadoo@gmail.com",
   redes: {

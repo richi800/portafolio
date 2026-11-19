@@ -68,6 +68,10 @@
 
 @theme {
   /* Escala tipográfica (cuarta justa, 1.333) con tamaños fluidos para títulos */
+  /* Nombre del hero: comparte fila con la foto, así que crece menos que display */
+  --text-hero: clamp(2.75rem, 8vw, 6.5rem);
+  --text-hero--line-height: 0.92;
+  --text-hero--letter-spacing: -0.04em;
   --text-display: clamp(3.75rem, 15vw, 10.5rem);
   --text-display--line-height: 0.86;
   --text-display--letter-spacing: -0.045em;
@@ -111,16 +115,11 @@
    */
   --animate-subir: subir 0.9s var(--ease-out-expo) both;
   --animate-subir-tarde: subir 0.9s var(--ease-out-expo) 80ms both;
-  --animate-revelar: revelar 0.9s var(--ease-out-expo) 200ms both;
+  --animate-subir-final: subir 0.9s var(--ease-out-expo) 160ms both;
 
   @keyframes subir {
     from {
       transform: translateY(100%);
-    }
-  }
-  @keyframes revelar {
-    from {
-      clip-path: inset(100% 0 0 0);
     }
   }
 }

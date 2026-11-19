@@ -5,7 +5,7 @@ export const servicios: Servicio[] = [
     icono: "tienda",
     titulo: "Tiendas en línea",
     descripcion:
-      "Shopify headless con Next.js: tiendas rápidas, responsivas y con buen SEO.",
+      "Tiendas headless con Next.js y Shopify: rápidas en el celular, bien posicionadas en buscadores y fáciles de administrar.",
     incluye: [
       "Catálogo, búsqueda y filtros",
       "Carrito y checkout con Shopify",
@@ -15,7 +15,8 @@ export const servicios: Servicio[] = [
   {
     icono: "integraciones",
     titulo: "Sistemas a medida e integraciones",
-    descripcion: "Herramientas internas que se conectan con lo que tu negocio ya usa.",
+    descripcion:
+      "Herramientas internas que conectan inventario, ventas y pagos con las plataformas que tu negocio ya usa.",
     incluye: [
       "Inventario y cotizaciones",
       "APIs REST e integraciones con CRM/ERP",
@@ -25,7 +26,8 @@ export const servicios: Servicio[] = [
   {
     icono: "soporte",
     titulo: "Mantenimiento y soporte en producción",
-    descripcion: "Me quedo después de la liberación para que todo siga funcionando.",
+    descripcion:
+      "El trabajo no termina en el lanzamiento: despliegues, corrección de errores y mantenimiento del servidor.",
     incluye: ["Despliegues y monitoreo", "Corrección de errores", "Servidores Linux"],
   },
 ]
