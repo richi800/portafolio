@@ -2,16 +2,18 @@ import type { Metadata } from "next"
 
 import { Button } from "@/components/ui/Button"
 import { Container } from "@/components/ui/Container"
-import { getDiccionario } from "@/i18n"
+import { getDiccionario, getLang } from "@/i18n"
+import { ruta } from "@/i18n/config"
 
-const t = getDiccionario()
-
-export const metadata: Metadata = {
-  title: t.noEncontrado.titulo,
-  robots: { index: false },
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getDiccionario()
+  return { title: t.noEncontrado.titulo, robots: { index: false } }
 }
 
-export default function NoEncontrado() {
+/** 404 en el idioma de la ruta (/es/... o /en/...). */
+export default async function NoEncontrado() {
+  const lang = await getLang()
+  const t = await getDiccionario()
   return (
     <Container className="grid gap-10 py-section md:grid-cols-12 md:items-end">
       <p
@@ -26,8 +28,8 @@ export default function NoEncontrado() {
           {t.noEncontrado.texto}
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
-          <Button href="/">{t.noEncontrado.inicio}</Button>
-          <Button href="/proyectos" variante="secundario">
+          <Button href={ruta(lang)}>{t.noEncontrado.inicio}</Button>
+          <Button href={ruta(lang, "/proyectos")} variante="secundario">
             {t.noEncontrado.proyectos}
           </Button>
         </div>

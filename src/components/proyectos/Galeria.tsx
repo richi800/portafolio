@@ -4,8 +4,6 @@ import Image from "next/image"
 import { getDiccionario } from "@/i18n"
 import type { Imagen } from "@/types"
 
-const t = getDiccionario()
-
 const sizes = "(min-width: 1216px) 1136px, 100vw"
 // En oscuro las capturas blancas se atenúan un poco para que no deslumbren.
 const claseImagen = "dark:brightness-90"
@@ -16,7 +14,8 @@ const claseImagen = "dark:brightness-90"
  * proporción original (sin recortar); si no, en 16:10.
  * Cada captura enlaza al archivo original: en el celular es la única forma de leerla.
  */
-export function Galeria({ imagenes }: { imagenes: Imagen[] }) {
+export async function Galeria({ imagenes }: { imagenes: Imagen[] }) {
+  const t = await getDiccionario()
   return (
     <ul className="grid gap-12 md:gap-16">
       {imagenes.map((img) => (

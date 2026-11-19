@@ -2,13 +2,15 @@ import Link from "next/link"
 
 import { Container } from "@/components/ui/Container"
 import { perfil } from "@/content/perfil"
-import { getDiccionario } from "@/i18n"
+import { getDiccionario, getLang } from "@/i18n"
+import { ruta } from "@/i18n/config"
 
+import { enlacesNav } from "./navegacion"
 import { Nav } from "./Nav"
 
-const t = getDiccionario()
-
-export function Header() {
+export async function Header() {
+  const lang = await getLang()
+  const t = await getDiccionario()
   return (
     <>
       <a
@@ -20,7 +22,7 @@ export function Header() {
       <header className="sticky top-0 z-40 border-b border-line/70 bg-paper/85 backdrop-blur-md">
         <Container className="relative flex h-16 items-center justify-between md:h-20">
           <Link
-            href="/"
+            href={ruta(lang)}
             className="inline-flex min-h-11 items-center font-display text-lead font-extrabold tracking-tight text-ink"
             aria-label={`${perfil.nombreCorto}, ${t.nav.inicio}`}
           >
@@ -29,7 +31,18 @@ export function Header() {
               .
             </span>
           </Link>
-          <Nav />
+          <Nav
+            lang={lang}
+            enlaces={enlacesNav(lang, t)}
+            textos={{
+              principal: t.nav.principal,
+              abrirMenu: t.nav.abrirMenu,
+              cerrarMenu: t.nav.cerrarMenu,
+              tema: t.nav.tema,
+              idioma: t.idioma.grupo,
+              verIdioma: t.idioma.ver,
+            }}
+          />
         </Container>
       </header>
     </>

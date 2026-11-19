@@ -1,8 +1,22 @@
-import { defaultLocale, type Locale } from "./config"
-import { es, type Diccionario } from "./es"
+import { notFound } from "next/navigation"
+import { lang } from "next/root-params"
 
-const diccionarios: Record<Locale, Diccionario> = { es }
+import { hasLocale, type Locale } from "./config"
+import { getDiccionarioDe, type Diccionario } from "./diccionarios"
 
-export function getDiccionario(locale: Locale = defaultLocale): Diccionario {
-  return diccionarios[locale]
+export { getDiccionarioDe }
+
+/**
+ * Idioma de la página actual, leído del primer segmento de la ruta (/es, /en).
+ * Solo en Server Components: los Client Components reciben sus textos por props.
+ */
+export async function getLang(): Promise<Locale> {
+  const valor = await lang()
+  if (!hasLocale(valor)) notFound()
+  return valor
+}
+
+/** Textos de interfaz del idioma de la página actual. */
+export async function getDiccionario(): Promise<Diccionario> {
+  return getDiccionarioDe(await getLang())
 }

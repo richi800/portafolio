@@ -1,4 +1,4 @@
-import { defaultLocale } from "@/i18n/config"
+import { formatoDe, type Locale } from "@/i18n/config"
 
 /**
  * URL pública del sitio. En Vercel se detecta sola; para un dominio propio
@@ -10,9 +10,9 @@ export const siteUrl =
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : "http://localhost:3000")
 
-/** "2026-10-12" → "octubre de 2026" */
-export function formatearFecha(fecha: string, locale: string = defaultLocale) {
-  return new Intl.DateTimeFormat(locale, {
+/** "2026-10-12" → "octubre de 2026" / "October 2026" */
+export function formatearFecha(fecha: string, lang: Locale) {
+  return new Intl.DateTimeFormat(formatoDe[lang], {
     month: "long",
     year: "numeric",
     timeZone: "UTC",

@@ -1,13 +1,39 @@
 import { ImageResponse } from "next/og"
 
 import { perfil } from "@/content/perfil"
+import { defaultLocale, hasLocale, type Locale } from "@/i18n/config"
 
-// Imagen para compartir en redes (Open Graph y Twitter), generada en el build.
-export const alt = `${perfil.nombre}, ${perfil.titulo}`
-export const size = { width: 1200, height: 630 }
-export const contentType = "image/png"
+// Imagen para compartir en redes (Open Graph y Twitter), generada en el build, una por idioma.
+const size = { width: 1200, height: 630 }
 
-export default function OpenGraphImage() {
+async function idiomaDe(params: Promise<{ lang: string }>): Promise<Locale> {
+  const { lang } = await params
+  return hasLocale(lang) ? lang : defaultLocale
+}
+
+/** `alt` en el idioma de la ruta (un `export const alt` sería el mismo en ambos). */
+export async function generateImageMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>
+}) {
+  const lang = await idiomaDe(params)
+  return [
+    {
+      id: "portada",
+      alt: `${perfil.nombre}, ${perfil.titulo[lang]}`,
+      size,
+      contentType: "image/png",
+    },
+  ]
+}
+
+export default async function OpenGraphImage({
+  params,
+}: {
+  params: Promise<{ lang: string }>
+}) {
+  const lang = await idiomaDe(params)
   return new ImageResponse(
     <div
       style={{
@@ -26,7 +52,7 @@ export default function OpenGraphImage() {
           style={{ width: 20, height: 20, borderRadius: 999, background: "#f2b134" }}
         />
         <div style={{ fontSize: 30, color: "#4a5372" }}>
-          {`${perfil.titulo} · ${perfil.disponibilidad}`}
+          {`${perfil.titulo[lang]} · ${perfil.disponibilidad[lang]}`}
         </div>
       </div>
       <div

@@ -1,14 +1,15 @@
 import { TarjetaProyecto } from "@/components/proyectos/TarjetaProyecto"
 import { Button } from "@/components/ui/Button"
 import { Section } from "@/components/ui/Section"
-import { getDiccionario } from "@/i18n"
+import { getDiccionario, getLang } from "@/i18n"
+import { ruta } from "@/i18n/config"
 import { cn } from "@/lib/cn"
 import { getProyectosDestacados } from "@/lib/proyectos"
 
-const t = getDiccionario()
-
-export function ProyectosDestacados() {
-  const [principal, ...otros] = getProyectosDestacados()
+export async function ProyectosDestacados() {
+  const lang = await getLang()
+  const t = await getDiccionario()
+  const [principal, ...otros] = getProyectosDestacados(lang)
   if (!principal) return null
 
   return (
@@ -18,7 +19,7 @@ export function ProyectosDestacados() {
       intro={t.destacados.intro}
       accion={
         <Button
-          href="/proyectos"
+          href={ruta(lang, "/proyectos")}
           variante="secundario"
           className="self-start md:self-auto"
         >

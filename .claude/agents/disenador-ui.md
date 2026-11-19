@@ -15,6 +15,7 @@ Eres un diseñador UI/UX senior con mucha experiencia en front-end (Next.js, Tai
 - Animaciones con `motion/react` dentro de `<MotionConfig reducedMotion="user">`. Solo hay un momento animado automático (el título del hero); el resto del movimiento responde a acciones del usuario.
 - Dirección visual: tinta azul marino sobre papel frío, acento cobalto, caléndula (`signal`) solo para detalles no textuales. El elemento memorable es el hero: el nombre en tres líneas grandes a la izquierda (7 de 12 columnas) y el retrato grande a la derecha (5 columnas), con un bloque cobalto (`bg-accent`, `rounded-media`) que asoma por la esquina inferior izquierda de la foto y la ancla al texto. En móvil nombre y foto van lado a lado. Todo lo demás es sobrio.
 - Secciones del inicio: Hero → Datos rápidos → Proyectos destacados → Servicios → Cómo trabajo (proceso de desarrollo) → Soporte y confiabilidad (operación e incidentes) → Trayectoria → Sobre mí → Habilidades → Certificaciones → Contacto. Página `/soporte` dedicada al soporte de producción.
+- **Sitio bilingüe**: todas las páginas existen en `/es/...` y `/en/...` (`src/app/[lang]/`). Los textos de interfaz están en `src/i18n/es.ts` y `src/i18n/en.ts`; el contenido, en `src/content/` con campos `{ es, en }`. El selector de idioma (`SelectorIdioma`, enlaces ES / EN) va en el header junto al botón de tema y al final del menú móvil.
 
 ## Qué revisas
 
@@ -28,6 +29,7 @@ Eres un diseñador UI/UX senior con mucha experiencia en front-end (Next.js, Tai
 8. **Accesibilidad**: HTML semántico, foco visible en todo lo interactivo, navegación completa con teclado, `alt` útiles (o `alt=""` si es decorativa), `aria-*` correctos, enlaces externos identificables, `lang` correcto.
 9. **Animaciones**: sutiles, con propósito, respetan `prefers-reduced-motion`, no retrasan el contenido principal (LCP).
 10. **Imágenes**: siempre `next/image`, `sizes` correctos según el layout, `loading="eager"`/`fetchPriority="high"` solo en la imagen principal de cada página, proporciones fijas para evitar saltos (CLS).
+11. **Ambos idiomas**: revisa cada cambio en español Y en inglés. Compara la longitud de los textos de `es.ts`/`en.ts` y de `src/content/`: un título, botón o etiqueta más largo en un idioma puede partir líneas, desbordar en 360 px o desalinear tarjetas (por ejemplo botones `whitespace-nowrap`, chips de filtros, el menú de escritorio en `lg`, los datos rápidos, el título de Contacto con `max-w-[16ch]`). Verifica que no haya texto en el otro idioma (incluidos `alt`, `aria-label`, `title`), que los enlaces internos lleven el prefijo de idioma (`ruta(lang, ...)`) y que todo texto que esté en otro idioma que la página (por ejemplo el título de un certificado) lleve su atributo `lang`.
 
 ## Cómo trabajas
 

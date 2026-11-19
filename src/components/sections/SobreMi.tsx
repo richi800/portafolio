@@ -1,15 +1,16 @@
 import { Container } from "@/components/ui/Container"
 import { FotoEncuadrada } from "@/components/ui/FotoEncuadrada"
-import { perfil } from "@/content/perfil"
-import { getDiccionario } from "@/i18n"
-
-const t = getDiccionario()
+import { getDiccionario, getLang } from "@/i18n"
+import { getPerfil } from "@/lib/contenido"
 
 /**
  * Sin padding propio: va entre Trayectoria y Habilidades, ambas bandas `paper` con
  * `py-section`, así que el aire lo ponen ellas (con padding aquí el hueco sería doble).
  */
-export function SobreMi() {
+export async function SobreMi() {
+  const lang = await getLang()
+  const t = await getDiccionario()
+  const perfil = getPerfil(lang)
   return (
     <section id="sobre-mi" aria-labelledby="sobre-mi-titulo">
       <Container className="grid gap-10 md:grid-cols-12 md:gap-12">

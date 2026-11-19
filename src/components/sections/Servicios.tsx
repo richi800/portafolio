@@ -4,13 +4,13 @@ import { Button } from "@/components/ui/Button"
 import { Card } from "@/components/ui/Card"
 import { IconoEnMarco } from "@/components/ui/Icono"
 import { Section } from "@/components/ui/Section"
-import { servicios } from "@/content/servicios"
-import { getDiccionario } from "@/i18n"
+import { getDiccionario, getLang } from "@/i18n"
 import { enlaceWhatsapp } from "@/lib/contacto"
+import { getServicios } from "@/lib/contenido"
 
-const t = getDiccionario()
-
-export function Servicios() {
+export async function Servicios() {
+  const lang = await getLang()
+  const t = await getDiccionario()
   return (
     <Section
       id="servicios"
@@ -19,7 +19,7 @@ export function Servicios() {
       tono="surface"
     >
       <ul className="grid gap-6 md:grid-cols-3 md:gap-8">
-        {servicios.map((s) => (
+        {getServicios(lang).map((s) => (
           <li key={s.titulo} className="flex">
             <Card
               as="article"
@@ -41,7 +41,7 @@ export function Servicios() {
         ))}
       </ul>
       <div className="mt-12 flex justify-center md:mt-16">
-        <Button href={enlaceWhatsapp} externo icono={<MessageCircle aria-hidden />}>
+        <Button href={enlaceWhatsapp(lang)} externo icono={<MessageCircle aria-hidden />}>
           {t.servicios.cotizar}
         </Button>
       </div>

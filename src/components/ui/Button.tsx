@@ -4,8 +4,6 @@ import type { ComponentProps, ReactNode } from "react"
 import { getDiccionario } from "@/i18n"
 import { cn } from "@/lib/cn"
 
-const t = getDiccionario()
-
 const base =
   "inline-flex min-h-12 items-center justify-center gap-2 rounded-control px-5 text-small font-bold whitespace-nowrap transition-colors duration-200 disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-[1.125rem] [&_svg]:shrink-0"
 
@@ -45,7 +43,8 @@ type ComoBoton = Comunes & { href?: undefined } & Omit<
     "className" | "children"
   >
 
-export function Button(props: ComoEnlace | ComoBoton) {
+/** Server Component (lee el idioma de la página para el aviso de "pestaña nueva"). */
+export async function Button(props: ComoEnlace | ComoBoton) {
   if (props.href !== undefined) {
     const {
       variante = "primario",
@@ -57,6 +56,7 @@ export function Button(props: ComoEnlace | ComoBoton) {
       descargar,
       ...rest
     } = props
+    const t = await getDiccionario()
     const clases = cn(base, variantes[variante], className)
     const contenido = (
       <>

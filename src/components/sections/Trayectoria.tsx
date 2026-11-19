@@ -1,18 +1,18 @@
 import { ArrowRight, GraduationCap } from "lucide-react"
 
 import { Section } from "@/components/ui/Section"
-import { trayectoria } from "@/content/trayectoria"
-import { getDiccionario } from "@/i18n"
+import { getDiccionario, getLang } from "@/i18n"
 import { cn } from "@/lib/cn"
-
-const t = getDiccionario()
+import { getTrayectoria } from "@/lib/contenido"
 
 /** Línea de tiempo: la trayectoria sí es una secuencia, por eso lleva línea y puntos. */
-export function Trayectoria() {
+export async function Trayectoria() {
+  const lang = await getLang()
+  const t = await getDiccionario()
   return (
     <Section id="trayectoria" titulo={t.trayectoria.titulo} intro={t.trayectoria.intro}>
       <ol className="relative max-w-3xl border-l-2 border-line">
-        {trayectoria.map((etapa, i) => {
+        {getTrayectoria(lang).map((etapa, i) => {
           const actual = i === 0
           return (
             <li key={etapa.lugar} className="relative pb-12 pl-8 last:pb-0 md:pl-12">

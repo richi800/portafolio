@@ -1,17 +1,35 @@
-import type { Proyecto } from "@/types"
+import type { ProyectoContenido } from "@/types"
 
-export const agendadoCitas: Proyecto = {
+export const agendadoCitas: ProyectoContenido = {
   slug: "agendado-citas",
-  titulo: "Plataforma de agendado de citas",
+  titulo: {
+    es: "Plataforma de agendado de citas",
+    en: "Appointment scheduling platform",
+  },
   cliente: "Central Médica",
-  resumen: "Plataforma web para que los pacientes agenden sus citas en línea.",
+  resumen: {
+    es: "Plataforma web para que los pacientes agenden sus citas en línea.",
+    en: "A web platform for patients to book their appointments online.",
+  },
   caso: {
-    problema:
-      "Los pacientes necesitaban una forma sencilla de agendar citas desde la web.",
-    solucion:
-      "Desarrollé una plataforma web con PHP y Laravel para el agendado de citas.",
-    funcionalidades: ["Agendado de citas en línea para pacientes"],
-    resultado: "La plataforma está en producción y le doy mantenimiento y soporte.",
+    problema: {
+      es: "Los pacientes necesitaban una forma sencilla de agendar citas desde la web.",
+      en: "Patients needed a simple way to book appointments on the web.",
+    },
+    solucion: {
+      es: "Desarrollé una plataforma web con PHP y Laravel para el agendado de citas.",
+      en: "I built a web platform for appointment scheduling with PHP and Laravel.",
+    },
+    funcionalidades: [
+      {
+        es: "Agendado de citas en línea para pacientes",
+        en: "Online appointment booking for patients",
+      },
+    ],
+    resultado: {
+      es: "La plataforma está en producción y le doy mantenimiento y soporte.",
+      en: "The platform is in production, and I maintain and support it.",
+    },
   },
   tecnologias: ["PHP", "Laravel"],
   // TODO(Ricardo): reemplaza con capturas reales (1600×1000 px, JPG o WebP) en
@@ -19,16 +37,25 @@ export const agendadoCitas: Proyecto = {
   // No muestres datos de pacientes: usa datos de prueba o difumina.
   imagenPortada: {
     src: "/images/proyectos/agendado-citas/portada.jpg",
-    alt: "Pantalla para elegir fecha y hora de una cita",
+    alt: {
+      es: "Pantalla para elegir fecha y hora de una cita",
+      en: "Screen for choosing an appointment date and time",
+    },
   },
   galeria: [
     {
       src: "/images/proyectos/agendado-citas/galeria-1.jpg",
-      alt: "Formulario de agendado de cita",
+      alt: {
+        es: "Formulario de agendado de cita",
+        en: "Appointment booking form",
+      },
     },
     {
       src: "/images/proyectos/agendado-citas/galeria-2.jpg",
-      alt: "Confirmación de cita agendada",
+      alt: {
+        es: "Confirmación de cita agendada",
+        en: "Booked appointment confirmation",
+      },
     },
   ],
   destacado: true,

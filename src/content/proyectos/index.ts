@@ -1,4 +1,4 @@
-import type { Proyecto } from "@/types"
+import type { ProyectoContenido } from "@/types"
 
 import { agendadoCitas } from "./agendado-citas"
 import { inventoryBridge } from "./inventory-bridge"
@@ -12,7 +12,7 @@ import { tiendaCentralMedica } from "./tienda-central-medica"
  * ESTE ORDEN es el del sitio: listado, destacados del inicio y navegación.
  * Los proyectos con `publicado: false` se ignoran en todo el sitio.
  */
-export const proyectos: Proyecto[] = [
+export const proyectos: ProyectoContenido[] = [
   tiendaCentralMedica,
   inventoryBridge,
   pabloBenlliure,

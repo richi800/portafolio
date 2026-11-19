@@ -1,8 +1,17 @@
-import { casosSoporte, practicasSoporte } from "@/content/soporte"
-import type { CasoSoporte } from "@/types"
+import {
+  casosSoporte,
+  cicloIncidente,
+  herramientasSoporte,
+  introSoporte,
+  practicasSoporte,
+} from "@/content/soporte"
+import type { Locale } from "@/i18n/config"
+import type { CasoSoporteContenido } from "@/types"
+
+import { porIdioma } from "./i18n"
 
 /** Detecta errores comunes al agregar un caso y falla el build con un mensaje claro. */
-function validar(lista: CasoSoporte[]) {
+function validar(lista: CasoSoporteContenido[]) {
   const vistos = new Set<string>()
   for (const c of lista) {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(c.slug)) {
@@ -16,14 +25,27 @@ function validar(lista: CasoSoporte[]) {
   return lista
 }
 
-const publicados = validar([...casosSoporte]).filter((c) => c.publicado !== false)
+const soporte = porIdioma({
+  intro: introSoporte,
+  ciclo: cicloIncidente,
+  practicas: practicasSoporte,
+  herramientas: herramientasSoporte,
+  casos: validar([...casosSoporte]).filter((c) => c.publicado !== false),
+})
 
-/** Casos reales publicados, en el orden de content/soporte.ts. */
-export function getCasosSoporte(): CasoSoporte[] {
-  return publicados
-}
+/** Frase de apertura y párrafo de experiencia. */
+export const getIntroSoporte = (lang: Locale) => soporte[lang].intro
+
+/** Pasos de "Así trabajo un incidente". */
+export const getCicloIncidente = (lang: Locale) => soporte[lang].ciclo
+
+export const getPracticasSoporte = (lang: Locale) => soporte[lang].practicas
 
 /** Las prácticas que se resumen en el inicio. */
-export function getPracticasDestacadas() {
-  return practicasSoporte.filter((p) => p.destacada)
-}
+export const getPracticasDestacadas = (lang: Locale) =>
+  soporte[lang].practicas.filter((p) => p.destacada)
+
+export const getHerramientasSoporte = (lang: Locale) => soporte[lang].herramientas
+
+/** Casos reales publicados, en el orden de content/soporte.ts. */
+export const getCasosSoporte = (lang: Locale) => soporte[lang].casos

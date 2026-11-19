@@ -10,32 +10,50 @@ import { Badge } from "@/components/ui/Badge"
 import { Button } from "@/components/ui/Button"
 import { Container } from "@/components/ui/Container"
 import { Section } from "@/components/ui/Section"
-import { herramientasSoporte, introSoporte, practicasSoporte } from "@/content/soporte"
-import { getDiccionario } from "@/i18n"
+import { getDiccionario, getLang } from "@/i18n"
+import { hasLocale } from "@/i18n/config"
+import { getDiccionarioDe } from "@/i18n/diccionarios"
+import { getCertificados } from "@/lib/certificados"
 import { enlaceWhatsapp } from "@/lib/contacto"
 import { getCvs, rutaCvSoporte } from "@/lib/cv"
-import { getCertificados } from "@/lib/certificados"
-import { getCasosSoporte } from "@/lib/soporte"
+import { metadataDePagina } from "@/lib/seo"
+import {
+  getCasosSoporte,
+  getHerramientasSoporte,
+  getIntroSoporte,
+  getPracticasSoporte,
+} from "@/lib/soporte"
 import type { AreaCertificado } from "@/types"
 
-const t = getDiccionario()
-const s = t.soportePagina
 const areasSoporte: AreaCertificado[] = ["soporte", "seguridad", "redes"]
 
 type Tono = "paper" | "surface"
 
-export const metadata: Metadata = {
-  title: { absolute: s.metaTitulo },
-  description: s.metaDescripcion,
-  alternates: { canonical: "/soporte" },
-  openGraph: { title: s.metaTitulo, description: s.metaDescripcion, url: "/soporte" },
-  twitter: { title: s.metaTitulo, description: s.metaDescripcion },
+export async function generateMetadata({
+  params,
+}: PageProps<"/[lang]/soporte">): Promise<Metadata> {
+  const { lang } = await params
+  if (!hasLocale(lang)) return {}
+  const s = getDiccionarioDe(lang).soportePagina
+  return {
+    title: { absolute: s.metaTitulo },
+    ...metadataDePagina({
+      lang,
+      path: "/soporte",
+      titulo: s.metaTitulo,
+      descripcion: s.metaDescripcion,
+    }),
+  }
 }
 
-export default function PaginaSoporte() {
-  const casos = getCasosSoporte()
-  const cvSoporte = getCvs().find((cv) => cv.ruta === rutaCvSoporte)
-  const hayCertificados = getCertificados(areasSoporte).length > 0
+export default async function PaginaSoporte() {
+  const lang = await getLang()
+  const t = await getDiccionario()
+  const s = t.soportePagina
+  const introSoporte = getIntroSoporte(lang)
+  const casos = getCasosSoporte(lang)
+  const cvSoporte = getCvs(lang).find((cv) => cv.clave === rutaCvSoporte)
+  const hayCertificados = getCertificados(lang, areasSoporte).length > 0
 
   /*
    * Bandas alternas aunque falten bloques: Ciclo (paper) → Prácticas (surface) →
@@ -60,12 +78,21 @@ export default function PaginaSoporte() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             {cvSoporte && (
-              <Button href={cvSoporte.ruta} descargar icono={<Download aria-hidden />}>
+              <Button
+                href={cvSoporte.ruta}
+                descargar
+                hrefLang={cvSoporte.idiomaArchivo}
+                icono={<Download aria-hidden />}
+                // En /en sin PDF traducido: "Download IT Support Resume (Spanish)" no cabe
+                // en una línea a 360 px.
+                className="py-3 whitespace-normal"
+              >
                 {s.cvSoporte}
+                {cvSoporte.idiomaArchivo !== lang && ` ${t.cv.enEspanol}`}
               </Button>
             )}
             <Button
-              href={enlaceWhatsapp}
+              href={enlaceWhatsapp(lang)}
               externo
               variante={cvSoporte ? "secundario" : "primario"}
               icono={<MessageCircle aria-hidden />}
@@ -87,7 +114,7 @@ export default function PaginaSoporte() {
         tono="surface"
       >
         <ul className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-          {practicasSoporte.map((p) => (
+          {getPracticasSoporte(lang).map((p) => (
             <li key={p.titulo} className="flex">
               <TarjetaPractica practica={p} />
             </li>
@@ -112,7 +139,7 @@ export default function PaginaSoporte() {
         tono={tonoHerramientas}
       >
         <ul className="flex flex-wrap gap-3">
-          {herramientasSoporte.map((h) => (
+          {getHerramientasSoporte(lang).map((h) => (
             <li key={h}>
               <Badge className="px-4 py-2 text-small text-ink">{h}</Badge>
             </li>

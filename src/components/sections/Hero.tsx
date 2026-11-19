@@ -3,13 +3,12 @@ import { MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/Button"
 import { Container } from "@/components/ui/Container"
 import { FotoEncuadrada } from "@/components/ui/FotoEncuadrada"
-import { perfil } from "@/content/perfil"
-import { getDiccionario } from "@/i18n"
+import { getDiccionario, getLang } from "@/i18n"
+import { ruta } from "@/i18n/config"
 import { enlaceWhatsapp } from "@/lib/contacto"
+import { getPerfil } from "@/lib/contenido"
 
 import { HeroTitulo } from "./HeroTitulo"
-
-const t = getDiccionario()
 
 /**
  * Retrato y nombre comparten protagonismo en una retícula de 12 columnas.
@@ -18,7 +17,10 @@ const t = getDiccionario()
  * - Desde md: todo el texto a la izquierda (7 col.) y el retrato completo a la derecha
  *   (5 col.), centrado en altura, con un bloque cobalto detrás que lo ancla al texto.
  */
-export function Hero() {
+export async function Hero() {
+  const lang = await getLang()
+  const t = await getDiccionario()
+  const perfil = getPerfil(lang)
   return (
     <section aria-labelledby="hero-titulo" className="pt-8 pb-16 md:pt-12 md:pb-24">
       <Container className="grid grid-cols-12 gap-x-4 md:gap-x-8 lg:gap-x-12">
@@ -73,10 +75,10 @@ export function Hero() {
             {perfil.presentacion}
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button href={enlaceWhatsapp} externo icono={<MessageCircle aria-hidden />}>
+            <Button href={enlaceWhatsapp(lang)} externo icono={<MessageCircle aria-hidden />}>
               {t.hero.cotizar}
             </Button>
-            <Button href="/#proyectos" variante="secundario">
+            <Button href={ruta(lang, "/#proyectos")} variante="secundario">
               {t.hero.verProyectos}
             </Button>
           </div>

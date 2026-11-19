@@ -20,6 +20,18 @@ export const es = {
     tema: "Cambiar entre modo claro y oscuro",
     nuevaPestana: "(se abre en una pestaña nueva)",
   },
+  idioma: {
+    grupo: "Idioma",
+    /** Iguales en ambos diccionarios: cada opción se anuncia en su propio idioma. */
+    ver: { es: "Ver en español", en: "View in English" },
+  },
+  cv: {
+    /** Sufijo de los botones de CV. */
+    pdf: "(PDF)",
+    /** Si en este idioma no hay versión traducida y se ofrece el PDF en español. */
+    pdfEnEspanol: "(PDF)",
+    enEspanol: "",
+  },
   hero: {
     cotizar: "Cotizar proyecto",
     verProyectos: "Ver proyectos",

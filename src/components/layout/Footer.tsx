@@ -2,9 +2,8 @@ import { Container } from "@/components/ui/Container"
 import { perfil } from "@/content/perfil"
 import { getDiccionario } from "@/i18n"
 
-const t = getDiccionario()
-
-export function Footer() {
+export async function Footer() {
+  const t = await getDiccionario()
   return (
     <footer className="border-t border-line">
       <Container className="flex flex-col gap-4 py-10 text-small text-ink-muted sm:flex-row sm:items-center sm:justify-between">

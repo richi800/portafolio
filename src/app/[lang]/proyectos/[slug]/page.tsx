@@ -11,54 +11,55 @@ import { Button } from "@/components/ui/Button"
 import { Container } from "@/components/ui/Container"
 import { IconoGithub } from "@/components/ui/IconosMarca"
 import { getDiccionario } from "@/i18n"
-import { getProyecto, getProyectos } from "@/lib/proyectos"
+import { hasLocale, ruta, type Locale } from "@/i18n/config"
 import { enlaceWhatsapp } from "@/lib/contacto"
+import { getProyecto, getProyectos } from "@/lib/proyectos"
+import { metadataDePagina } from "@/lib/seo"
 
-const t = getDiccionario()
-
-/** Genera en el build una página estática por proyecto. */
-export function generateStaticParams() {
-  return getProyectos().map((p) => ({ slug: p.slug }))
+/**
+ * Genera en el build una página estática por proyecto y por idioma: el layout da los
+ * idiomas y aquí, para cada uno, los slugs publicados (iguales en ambos idiomas).
+ */
+export function generateStaticParams({ params }: { params: { lang: string } }) {
+  const lang: Locale = hasLocale(params.lang) ? params.lang : "es"
+  return getProyectos(lang).map((p) => ({ slug: p.slug }))
 }
 
 export async function generateMetadata({
   params,
-}: PageProps<"/proyectos/[slug]">): Promise<Metadata> {
-  const { slug } = await params
-  const proyecto = getProyecto(slug)
+}: PageProps<"/[lang]/proyectos/[slug]">): Promise<Metadata> {
+  const { lang, slug } = await params
+  if (!hasLocale(lang)) return {}
+  const proyecto = getProyecto(slug, lang)
   if (!proyecto) return {}
 
-  const imagen = { url: proyecto.imagenPortada.src, alt: proyecto.imagenPortada.alt }
   return {
     title: proyecto.titulo,
-    description: proyecto.resumen,
-    alternates: { canonical: `/proyectos/${slug}` },
-    openGraph: {
-      type: "article",
-      title: proyecto.titulo,
-      description: proyecto.resumen,
-      url: `/proyectos/${slug}`,
-      images: [imagen],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: proyecto.titulo,
-      description: proyecto.resumen,
-      images: [imagen],
-    },
+    ...metadataDePagina({
+      lang,
+      path: `/proyectos/${slug}`,
+      titulo: proyecto.titulo,
+      descripcion: proyecto.resumen,
+      tipo: "article",
+      imagenes: [{ url: proyecto.imagenPortada.src, alt: proyecto.imagenPortada.alt }],
+    }),
   }
 }
 
-export default async function PaginaProyecto({ params }: PageProps<"/proyectos/[slug]">) {
-  const { slug } = await params
-  const proyecto = getProyecto(slug)
+export default async function PaginaProyecto({
+  params,
+}: PageProps<"/[lang]/proyectos/[slug]">) {
+  const { lang, slug } = await params
+  if (!hasLocale(lang)) notFound()
+  const proyecto = getProyecto(slug, lang)
   if (!proyecto) notFound()
+  const t = await getDiccionario()
 
   return (
     <article className="pt-10 pb-section md:pt-16">
       <Container>
         <Link
-          href="/proyectos"
+          href={ruta(lang, "/proyectos")}
           className="inline-flex min-h-11 items-center gap-2 text-small font-bold text-ink-muted transition-colors hover:text-ink"
         >
           <ArrowLeft aria-hidden className="size-4" />
@@ -172,7 +173,7 @@ export default async function PaginaProyecto({ params }: PageProps<"/proyectos/[
                 {t.detalle.cotizar}
               </p>
               <Button
-                href={enlaceWhatsapp}
+                href={enlaceWhatsapp(lang)}
                 externo
                 icono={<MessageCircle aria-hidden />}
                 className="mt-4"
@@ -188,7 +189,11 @@ export default async function PaginaProyecto({ params }: PageProps<"/proyectos/[
             <h2 id="video-titulo" className="mb-8 text-heading font-bold">
               {t.detalle.video}
             </h2>
-            <VideoYoutube id={proyecto.videoYoutube} titulo={proyecto.titulo} />
+            <VideoYoutube
+              id={proyecto.videoYoutube}
+              titulo={proyecto.titulo}
+              etiquetaReproducir={t.detalle.reproducir(proyecto.titulo)}
+            />
           </section>
         )}
 
@@ -204,7 +209,7 @@ export default async function PaginaProyecto({ params }: PageProps<"/proyectos/[
         {/* Cierre: tras una galería larga la página no termina en seco. */}
         <div className="mt-16 border-t border-line pt-8 md:mt-24">
           <Link
-            href="/proyectos"
+            href={ruta(lang, "/proyectos")}
             className="inline-flex min-h-11 items-center gap-2 text-small font-bold text-ink-muted transition-colors hover:text-ink"
           >
             <ArrowLeft aria-hidden className="size-4" />

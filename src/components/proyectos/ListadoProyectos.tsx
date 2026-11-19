@@ -3,12 +3,18 @@
 import { AnimatePresence, motion } from "motion/react"
 import { useState, type ReactNode } from "react"
 
-import { getDiccionario } from "@/i18n"
 import { cn } from "@/lib/cn"
 
-const t = getDiccionario()
-
 type Item = { slug: string; tecnologias: string[]; tarjeta: ReactNode }
+
+/** Textos de interfaz que llegan del Server Component padre (en el idioma de la página). */
+export type TextosListadoProyectos = {
+  filtrar: string
+  todas: string
+  vacio: string
+  /** `resultados[n]` = texto para n proyectos visibles. */
+  resultados: string[]
+}
 
 /**
  * Filtro por tecnología. Las tarjetas llegan ya renderizadas desde el servidor;
@@ -17,15 +23,17 @@ type Item = { slug: string; tecnologias: string[]; tarjeta: ReactNode }
 export function ListadoProyectos({
   items,
   tecnologias,
+  textos,
 }: {
   items: Item[]
   tecnologias: string[]
+  textos: TextosListadoProyectos
 }) {
   const [filtro, setFiltro] = useState<string | null>(null)
   const visibles = filtro ? items.filter((i) => i.tecnologias.includes(filtro)) : items
 
   const opciones: { valor: string | null; etiqueta: string }[] = [
-    { valor: null, etiqueta: t.proyectos.todas },
+    { valor: null, etiqueta: textos.todas },
     ...tecnologias.map((tec) => ({ valor: tec, etiqueta: tec })),
   ]
 
@@ -37,7 +45,7 @@ export function ListadoProyectos({
         className="flex flex-col gap-4 border-y border-line py-6 md:flex-row md:items-center md:gap-6"
       >
         <p id="filtro-titulo" className="shrink-0 text-small font-bold text-ink">
-          {t.proyectos.filtrar}
+          {textos.filtrar}
         </p>
         <ul className="flex flex-wrap gap-2">
           {opciones.map((o) => {
@@ -65,19 +73,19 @@ export function ListadoProyectos({
           aria-live="polite"
           className="text-small text-ink-muted md:ml-auto md:shrink-0"
         >
-          {t.proyectos.resultados(visibles.length)}
+          {textos.resultados[visibles.length]}
         </p>
       </div>
 
       {visibles.length === 0 ? (
         <div className="mt-12 rounded-card border border-dashed border-line p-10 text-center">
-          <p className="text-ink-muted">{t.proyectos.vacio}</p>
+          <p className="text-ink-muted">{textos.vacio}</p>
           <button
             type="button"
             onClick={() => setFiltro(null)}
             className="mt-2 min-h-11 px-2 text-small font-bold text-accent underline underline-offset-4 hover:text-accent-strong"
           >
-            {t.proyectos.todas}
+            {textos.todas}
           </button>
         </div>
       ) : (

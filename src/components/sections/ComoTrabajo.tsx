@@ -1,15 +1,15 @@
 import { IconoEnMarco } from "@/components/ui/Icono"
 import { Section } from "@/components/ui/Section"
-import { metodo } from "@/content/metodo"
-import { getDiccionario } from "@/i18n"
+import { getDiccionario, getLang } from "@/i18n"
+import { getMetodo } from "@/lib/contenido"
 
-const t = getDiccionario()
-
-export function ComoTrabajo() {
+export async function ComoTrabajo() {
+  const lang = await getLang()
+  const t = await getDiccionario()
   return (
     <Section id="como-trabajo" titulo={t.comoTrabajo.titulo} intro={t.comoTrabajo.intro}>
       <ul className="grid gap-x-10 gap-y-12 sm:grid-cols-2">
-        {metodo.map((punto) => (
+        {getMetodo(lang).map((punto) => (
           <li key={punto.titulo} className="flex gap-5">
             <IconoEnMarco nombre={punto.icono} />
             <div>

@@ -3,11 +3,10 @@ import Link from "next/link"
 
 import { Badge } from "@/components/ui/Badge"
 import { Card } from "@/components/ui/Card"
-import { getDiccionario } from "@/i18n"
+import { getDiccionario, getLang } from "@/i18n"
+import { ruta } from "@/i18n/config"
 import { cn } from "@/lib/cn"
 import type { Proyecto } from "@/types"
-
-const t = getDiccionario()
 
 type Props = {
   proyecto: Proyecto
@@ -25,13 +24,15 @@ type Props = {
  * Toda la tarjeta es clicable gracias al enlace "estirado" del título
  * (un solo enlace por tarjeta: mejor para lectores de pantalla y teclado).
  */
-export function TarjetaProyecto({
+export async function TarjetaProyecto({
   proyecto,
   formato = "normal",
   invertida = false,
   nivel = "h3",
   contexto = "inicio",
 }: Props) {
+  const lang = await getLang()
+  const t = await getDiccionario()
   const Titulo = nivel
   const ancha = formato === "ancha"
 
@@ -83,7 +84,7 @@ export function TarjetaProyecto({
           className={cn("font-bold text-ink", ancha ? "text-heading" : "text-subheading")}
         >
           <Link
-            href={`/proyectos/${proyecto.slug}`}
+            href={ruta(lang, `/proyectos/${proyecto.slug}`)}
             className="after:absolute after:inset-0 after:rounded-card focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:-outline-offset-4 focus-visible:after:outline-accent"
           >
             {proyecto.titulo}

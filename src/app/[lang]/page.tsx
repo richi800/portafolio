@@ -9,15 +9,17 @@ import { Servicios } from "@/components/sections/Servicios"
 import { SobreMi } from "@/components/sections/SobreMi"
 import { SoporteResumen } from "@/components/sections/SoporteResumen"
 import { Trayectoria } from "@/components/sections/Trayectoria"
+import { getLang } from "@/i18n"
 import { getCertificados } from "@/lib/certificados"
 
 /*
  * Bandas: Servicios (surface) → Cómo trabajo → Soporte (surface) → Trayectoria → Sobre mí →
  * Habilidades → Certificaciones (surface) → Contacto. Contacto no trae padding superior: tras
  * una banda surface necesita el suyo; tras Habilidades (paper) ya hay aire.
+ * La metadata (título, canonical, hreflang) la pone el layout con path "/".
  */
-export default function Inicio() {
-  const hayCertificados = getCertificados().length > 0
+export default async function Inicio() {
+  const hayCertificados = getCertificados(await getLang()).length > 0
   return (
     <>
       <Hero />

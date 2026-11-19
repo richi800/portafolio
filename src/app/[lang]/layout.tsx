@@ -1,15 +1,17 @@
 import type { Metadata, Viewport } from "next"
 import { Atkinson_Hyperlegible_Next, Bricolage_Grotesque } from "next/font/google"
+import { notFound } from "next/navigation"
 
 import { Footer } from "@/components/layout/Footer"
 import { Header } from "@/components/layout/Header"
 import { Providers } from "@/components/layout/Providers"
 import { perfil } from "@/content/perfil"
-import { getDiccionario } from "@/i18n"
-import { defaultLocale } from "@/i18n/config"
+import { hasLocale, locales } from "@/i18n/config"
+import { getDiccionarioDe } from "@/i18n/diccionarios"
+import { metadataDePagina } from "@/lib/seo"
 import { siteUrl } from "@/lib/sitio"
 
-import "./globals.css"
+import "../globals.css"
 
 // Títulos: grotesca con carácter y eje óptico, se ve bien en tamaños gigantes.
 const display = Bricolage_Grotesque({
@@ -29,31 +31,32 @@ const texto = Atkinson_Hyperlegible_Next({
   display: "swap",
 })
 
-const t = getDiccionario()
-const tituloSitio = t.meta.titulo
+/** Una versión estática de todo el sitio por idioma (obligatorio con cacheComponents). */
+export function generateStaticParams() {
+  return locales.map((lang) => ({ lang }))
+}
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: { default: tituloSitio, template: `%s | ${perfil.nombre}` },
-  description: t.meta.descripcion,
-  applicationName: perfil.nombre,
-  authors: [{ name: perfil.nombre, url: siteUrl }],
-  creator: perfil.nombre,
-  alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    locale: "es_MX",
-    url: "/",
-    siteName: perfil.nombre,
-    title: tituloSitio,
-    description: t.meta.descripcion,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: tituloSitio,
-    description: t.meta.descripcion,
-  },
-  robots: { index: true, follow: true },
+export async function generateMetadata({
+  params,
+}: LayoutProps<"/[lang]">): Promise<Metadata> {
+  const { lang } = await params
+  if (!hasLocale(lang)) return {}
+  const t = getDiccionarioDe(lang)
+
+  return {
+    metadataBase: new URL(siteUrl),
+    title: { default: t.meta.titulo, template: `%s | ${perfil.nombre}` },
+    applicationName: perfil.nombre,
+    authors: [{ name: perfil.nombre, url: siteUrl }],
+    creator: perfil.nombre,
+    robots: { index: true, follow: true },
+    ...metadataDePagina({
+      lang,
+      path: "/",
+      titulo: t.meta.titulo,
+      descripcion: t.meta.descripcion,
+    }),
+  }
 }
 
 export const viewport: Viewport = {
@@ -63,10 +66,13 @@ export const viewport: Viewport = {
   ],
 }
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children, params }: LayoutProps<"/[lang]">) {
+  const { lang } = await params
+  if (!hasLocale(lang)) notFound()
+
   return (
     <html
-      lang={defaultLocale}
+      lang={lang}
       // next-themes cambia la clase de <html> antes de hidratar.
       suppressHydrationWarning
       className={`${display.variable} ${texto.variable}`}

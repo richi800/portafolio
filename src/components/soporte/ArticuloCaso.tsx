@@ -6,9 +6,6 @@ import { Card } from "@/components/ui/Card"
 import { getDiccionario } from "@/i18n"
 import type { CasoSoporte } from "@/types"
 
-const t = getDiccionario()
-const p = t.soportePagina.pasos
-
 function Paso({
   numero,
   titulo,
@@ -45,7 +42,9 @@ function Lista({ items }: { items: string[] }) {
 }
 
 /** Caso real anonimizado con los 8 pasos: del síntoma al resultado. */
-export function ArticuloCaso({ caso }: { caso: CasoSoporte }) {
+export async function ArticuloCaso({ caso }: { caso: CasoSoporte }) {
+  const t = await getDiccionario()
+  const p = t.soportePagina.pasos
   const tituloId = `caso-${caso.slug}`
   return (
     <Card as="article" aria-labelledby={tituloId} className="p-6 shadow-none md:p-10">

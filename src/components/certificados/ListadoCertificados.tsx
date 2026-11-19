@@ -2,13 +2,19 @@
 
 import { useId, useState, type ReactNode } from "react"
 
-import { getDiccionario } from "@/i18n"
 import { cn } from "@/lib/cn"
 import type { AreaCertificado } from "@/types"
 
-const t = getDiccionario()
-
 type Item = { clave: string; area: AreaCertificado; tarjeta: ReactNode }
+
+/** Textos de interfaz que llegan del Server Component padre (en el idioma de la página). */
+export type TextosListadoCertificados = {
+  todas: string
+  filtrar: string
+  areas: Record<AreaCertificado, string>
+  /** `resultados[n]` = texto para n certificados visibles. */
+  resultados: string[]
+}
 
 /**
  * Filtro por área. Las tarjetas llegan ya renderizadas desde el servidor; aquí solo se
@@ -17,17 +23,19 @@ type Item = { clave: string; area: AreaCertificado; tarjeta: ReactNode }
 export function ListadoCertificados({
   items,
   areas,
+  textos,
 }: {
   items: Item[]
   areas: AreaCertificado[]
+  textos: TextosListadoCertificados
 }) {
   const [filtro, setFiltro] = useState<AreaCertificado | null>(null)
   const tituloId = useId()
   const visibles = filtro ? items.filter((i) => i.area === filtro) : items
 
   const opciones: { valor: AreaCertificado | null; etiqueta: string }[] = [
-    { valor: null, etiqueta: t.certificados.todas },
-    ...areas.map((a) => ({ valor: a, etiqueta: t.certificados.areas[a] })),
+    { valor: null, etiqueta: textos.todas },
+    ...areas.map((a) => ({ valor: a, etiqueta: textos.areas[a] })),
   ]
 
   return (
@@ -39,7 +47,7 @@ export function ListadoCertificados({
           className="mb-10 flex flex-col gap-4 border-y border-line py-6 md:flex-row md:items-center md:gap-6"
         >
           <p id={tituloId} className="shrink-0 text-small font-bold text-ink">
-            {t.certificados.filtrar}
+            {textos.filtrar}
           </p>
           <ul className="flex flex-wrap gap-2">
             {opciones.map((o) => {
@@ -67,7 +75,7 @@ export function ListadoCertificados({
             aria-live="polite"
             className="text-small text-ink-muted md:ml-auto md:shrink-0"
           >
-            {t.certificados.resultados(visibles.length)}
+            {textos.resultados[visibles.length]}
           </p>
         </div>
       )}

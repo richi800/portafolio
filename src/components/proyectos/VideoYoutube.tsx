@@ -4,16 +4,21 @@ import { Play } from "lucide-react"
 import Image from "next/image"
 import { useState } from "react"
 
-import { getDiccionario } from "@/i18n"
-
-const t = getDiccionario()
-
 /**
  * Video ligero: muestra solo la miniatura y carga el iframe de YouTube
  * (más de 500 KB de JavaScript) cuando la persona hace clic.
  * Usa youtube-nocookie.com para no dejar cookies hasta reproducir.
+ * `etiquetaReproducir` llega traducida del Server Component padre.
  */
-export function VideoYoutube({ id, titulo }: { id: string; titulo: string }) {
+export function VideoYoutube({
+  id,
+  titulo,
+  etiquetaReproducir,
+}: {
+  id: string
+  titulo: string
+  etiquetaReproducir: string
+}) {
   const [activo, setActivo] = useState(false)
 
   return (
@@ -30,7 +35,7 @@ export function VideoYoutube({ id, titulo }: { id: string; titulo: string }) {
         <button
           type="button"
           onClick={() => setActivo(true)}
-          aria-label={t.detalle.reproducir(titulo)}
+          aria-label={etiquetaReproducir}
           className="group absolute inset-0 flex items-center justify-center focus-visible:outline-offset-[-6px] focus-visible:outline-accent-ink"
         >
           <Image
