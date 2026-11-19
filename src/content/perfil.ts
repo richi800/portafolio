@@ -25,10 +25,10 @@ export const perfil: Perfil = {
   ],
   disponibilidad: "Disponible para proyectos freelance",
   foto: {
-    src: "/images/perfil/ricardo-rivas.webp",
-    alt: "Ricardo Rivas Rosado sonriendo, con saco y camiseta negros, en una oficina con paneles de madera",
+    src: "/images/perfil/ricardo-rivas-retrato.webp",
+    alt: "Retrato de Ricardo Rivas Rosado con saco y suéter negros, mirando a la cámara, sobre fondo gris",
     // Centro del rostro en la foto original: los recortes cerrados hacen zoom aquí.
-    foco: "52% 46%",
+    foco: "46% 40%",
   },
   correo: "ricardo.rivas.rosadoo@gmail.com",
   redes: {
