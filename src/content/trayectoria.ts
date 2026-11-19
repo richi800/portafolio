@@ -1,6 +1,9 @@
 import type { EtapaTrayectoria } from "@/types"
 
-/** De lo más reciente a lo más antiguo. */
+/**
+ * De lo más reciente a lo más antiguo.
+ * El soporte SaaS L3 como Coordinador de TI en Grupo Komunah lo confirmó Ricardo el 2026-11-19.
+ */
 export const trayectoria: EtapaTrayectoria[] = [
   {
     tipo: "trabajo",
@@ -16,7 +19,7 @@ export const trayectoria: EtapaTrayectoria[] = [
     periodo: "2019 – Enero 2025",
     roles: ["Coordinador de TI", "Desarrollador de Software Junior"],
     descripcion:
-      "Empecé coordinando la mesa de ayuda y la infraestructura (Microsoft 365, redes, CRM y ERP) y crecí hacia el desarrollo: funcionalidades en React y Node.js, integraciones REST con CRM, ERP y Mercado Pago, y validación de datos con SQL.",
+      "Como Coordinador de TI estuve a cargo del soporte SaaS de nivel 3 (L3): escalaciones complejas, mesa de ayuda e infraestructura con Microsoft 365, redes, CRM y ERP. De ahí pasé al desarrollo: funcionalidades en React y Node.js, integraciones REST con CRM, ERP y Mercado Pago, y validación de datos con SQL.",
   },
   {
     tipo: "educacion",

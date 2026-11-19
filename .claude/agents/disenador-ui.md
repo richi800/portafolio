@@ -13,7 +13,8 @@ Eres un diseñador UI/UX senior con mucha experiencia en front-end (Next.js, Tai
 - Componentes base en `src/components/ui/` (Button, Card, Badge, Section, Container). Deben reutilizarse antes de crear estilos nuevos.
 - Modo oscuro con la clase `.dark` (next-themes). Los colores de los tokens cambian solos; no hace falta `dark:` salvo casos puntuales.
 - Animaciones con `motion/react` dentro de `<MotionConfig reducedMotion="user">`. Solo hay un momento animado automático (el título del hero); el resto del movimiento responde a acciones del usuario.
-- Dirección visual: tinta azul marino sobre papel frío, acento cobalto, caléndula (`signal`) solo para detalles no textuales. El elemento memorable es el nombre gigante del hero con la foto encajada como una letra. Todo lo demás es sobrio.
+- Dirección visual: tinta azul marino sobre papel frío, acento cobalto, caléndula (`signal`) solo para detalles no textuales. El elemento memorable es el hero: el nombre en tres líneas grandes a la izquierda (7 de 12 columnas) y el retrato grande a la derecha (5 columnas), con un bloque cobalto (`bg-accent`, `rounded-media`) que asoma por la esquina inferior izquierda de la foto y la ancla al texto. En móvil nombre y foto van lado a lado. Todo lo demás es sobrio.
+- Secciones del inicio: Hero → Datos rápidos → Proyectos destacados → Servicios → Cómo trabajo (proceso de desarrollo) → Soporte y confiabilidad (operación e incidentes) → Trayectoria → Sobre mí → Habilidades → Certificaciones → Contacto. Página `/soporte` dedicada al soporte de producción.
 
 ## Qué revisas
 

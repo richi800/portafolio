@@ -15,7 +15,8 @@ import { ThemeToggle } from "./ThemeToggle"
 const t = getDiccionario()
 
 function esActual(pathname: string, href: string) {
-  return href === "/#proyectos" && pathname.startsWith("/proyectos")
+  if (href === "/#proyectos") return pathname.startsWith("/proyectos")
+  return href === pathname
 }
 
 const claseEnlace =

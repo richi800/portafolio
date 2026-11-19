@@ -9,7 +9,7 @@ export const perfil: Perfil = {
     "Desarrollo aplicaciones web completas: frontend, backend, base de datos e integraciones con APIs. Hoy mantengo tres sistemas en producción, del código al servidor.",
   bio: [
     "Soy desarrollador Full Stack. Construyo comercio electrónico, sistemas internos e integraciones entre plataformas con Next.js, React, TypeScript, Node.js y Laravel.",
-    "Llegué al desarrollo desde TI: en 2019 empecé coordinando soporte e infraestructura y fui pasando a programar funcionalidades e integraciones. Por eso pienso en cómo se usa un sistema en el día a día, no solo en cómo se programa.",
+    "Llegué al desarrollo desde TI: en 2019 empecé como Coordinador de TI, a cargo del soporte SaaS L3, y fui pasando a programar funcionalidades e integraciones. Por eso pienso en cómo se usa un sistema en el día a día, no solo en cómo se programa.",
     "Hoy me hago cargo de proyectos de principio a fin: requerimientos, código, base de datos, despliegue, servidor Linux y soporte después del lanzamiento.",
   ],
   datos: [
@@ -41,7 +41,12 @@ export const perfil: Perfil = {
     numero: "529991493958",
     mensaje: "Hola Ricardo, vi tu portafolio y me interesa cotizar un proyecto",
   },
-  cv: "/cv/ricardo-rivas-cv.pdf",
+  cvs: [
+    { etiqueta: "CV Desarrollador Full Stack (PDF)", ruta: "/cv/ricardo-rivas-cv.pdf" },
+    // TODO(Ricardo): copia tu CV de Soporte TI a public/cv/ con este nombre. Mientras no
+    // exista el archivo, este botón no aparece.
+    { etiqueta: "CV Soporte TI (PDF)", ruta: "/cv/ricardo-rivas-cv-soporte-ti.pdf" },
+  ],
   habilidades: [
     {
       categoria: "Frontend",

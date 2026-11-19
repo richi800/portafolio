@@ -1,6 +1,8 @@
 import {
+  Award,
   BadgeCheck,
   Blocks,
+  BookOpenText,
   Cloud,
   Database,
   KanbanSquare,
@@ -8,9 +10,14 @@ import {
   LayoutTemplate,
   LifeBuoy,
   ListChecks,
+  MessagesSquare,
   Rocket,
+  SearchCode,
   Server,
+  ShieldCheck,
   ShoppingBag,
+  Siren,
+  Workflow,
   type LucideIcon,
 } from "lucide-react"
 
@@ -29,6 +36,13 @@ const iconos: Record<NombreIcono, LucideIcon> = {
   calidad: BadgeCheck,
   infraestructura: Cloud,
   idiomas: Languages,
+  incidentes: Siren,
+  diagnostico: SearchCode,
+  seguridad: ShieldCheck,
+  documentacion: BookOpenText,
+  comunicacion: MessagesSquare,
+  certificado: Award,
+  automatizacion: Workflow,
 }
 
 /** Ícono decorativo a partir del nombre usado en /src/content. */

@@ -30,6 +30,13 @@ export type NombreIcono =
   | "calidad"
   | "infraestructura"
   | "idiomas"
+  | "incidentes"
+  | "diagnostico"
+  | "seguridad"
+  | "documentacion"
+  | "comunicacion"
+  | "certificado"
+  | "automatizacion"
 
 export type Proyecto = {
   /** Identificador en la URL: /proyectos/<slug>. Minúsculas y guiones, único. */
@@ -107,8 +114,11 @@ export type Perfil = {
     numero: string
     mensaje: string
   }
-  /** Ruta al PDF dentro de /public. */
-  cv: string
+  /**
+   * Versiones del CV, la principal primero. Las que no tienen archivo en /public no se
+   * muestran (ver lib/cv.ts).
+   */
+  cvs: VersionCv[]
   habilidades: GrupoHabilidades[]
 }
 
@@ -132,4 +142,67 @@ export type EtapaTrayectoria = {
   /** Uno o más roles, en orden cronológico. */
   roles: string[]
   descripcion?: string
+}
+
+export type VersionCv = {
+  etiqueta: string
+  /** Ruta dentro de /public. */
+  ruta: string
+}
+
+export type AreaCertificado =
+  "soporte" | "seguridad" | "redes" | "cloud" | "desarrollo" | "datos"
+
+export type Certificado = {
+  titulo: string
+  /** Quién emite o imparte: "Udemy · Denis Chepik Antropov", "Cisco", "Google"... */
+  emisor: string
+  area: AreaCertificado
+  /** "en-curso" se muestra con etiqueta; nunca se presenta como terminado. */
+  estado: "completado" | "en-curso"
+  /** AAAA-MM. Obligatoria si estado = "completado". */
+  fecha?: string
+  /** Enlace público para verificar el certificado (Udemy da uno por certificado). */
+  urlVerificacion?: string
+  /** Horas del curso, si la plataforma las indica. */
+  horas?: number
+  /** Qué aprendió y aplica, una frase. Opcional. */
+  aprendizaje?: string
+}
+
+export type PracticaSoporte = {
+  icono: NombreIcono
+  titulo: string
+  descripcion: string
+  /** true = aparece también en la sección "Soporte y confiabilidad" del inicio. */
+  destacada?: boolean
+}
+
+/** Paso del ciclo de un incidente ("Así trabajo un incidente"). */
+export type PasoIncidente = {
+  titulo: string
+  descripcion: string
+}
+
+/** Caso real anonimizado. Estructura de 8 pasos. */
+export type CasoSoporte = {
+  slug: string
+  titulo: string
+  /** Contexto sin nombres sensibles: "Tienda en línea con Shopify", "Mesa de ayuda corporativa". */
+  contexto: string
+  sintoma: string
+  impacto: string
+  /** Arquitectura o flujo afectado, en una o dos frases. */
+  flujo: string
+  evidencia: string[]
+  hipotesis: { idea: string; resultado: string }[]
+  causaRaiz: string
+  mitigacion: string
+  solucion: string
+  prevencion: string[]
+  /** Cualitativo si no hay números reales. */
+  resultado: string
+  tecnologias: string[]
+  /** false = oculto. Por defecto oculto hasta que Ricardo confirme que es real. */
+  publicado?: boolean
 }

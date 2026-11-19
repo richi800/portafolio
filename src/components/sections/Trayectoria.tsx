@@ -10,12 +10,7 @@ const t = getDiccionario()
 /** Línea de tiempo: la trayectoria sí es una secuencia, por eso lleva línea y puntos. */
 export function Trayectoria() {
   return (
-    <Section
-      id="trayectoria"
-      titulo={t.trayectoria.titulo}
-      intro={t.trayectoria.intro}
-      tono="surface"
-    >
+    <Section id="trayectoria" titulo={t.trayectoria.titulo} intro={t.trayectoria.intro}>
       <ol className="relative max-w-3xl border-l-2 border-line">
         {trayectoria.map((etapa, i) => {
           const actual = i === 0
@@ -24,7 +19,7 @@ export function Trayectoria() {
               <span
                 aria-hidden
                 className={cn(
-                  "absolute top-1.5 -left-[0.5625rem] size-4 rounded-full border-2",
+                  "absolute top-1.5 -left-2.25 size-4 rounded-full border-2",
                   actual ? "border-accent bg-accent" : "border-ink-muted bg-surface",
                 )}
               />

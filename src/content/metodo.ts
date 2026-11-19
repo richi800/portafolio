@@ -1,6 +1,9 @@
 import type { PuntoMetodo } from "@/types"
 
-/** Sección "Cómo trabajo". Sin nombres de empresas. */
+/**
+ * Sección "Cómo trabajo": el proceso de DESARROLLO. La operación y los incidentes van en
+ * "Soporte y confiabilidad" (content/soporte.ts). Sin nombres de empresas.
+ */
 export const metodo: PuntoMetodo[] = [
   {
     icono: "pruebas",
@@ -23,6 +26,6 @@ export const metodo: PuntoMetodo[] = [
     icono: "produccion",
     titulo: "Producción",
     descripcion:
-      "Despliegues con Git en Vercel y DigitalOcean. Si algo falla, encuentro la causa raíz y la dejo documentada.",
+      "Despliegues con Git en Vercel y DigitalOcean, y acompañamiento después del lanzamiento.",
   },
 ]

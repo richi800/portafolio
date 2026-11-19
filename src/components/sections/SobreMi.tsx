@@ -5,9 +5,13 @@ import { getDiccionario } from "@/i18n"
 
 const t = getDiccionario()
 
+/**
+ * Sin padding propio: va entre Trayectoria y Habilidades, ambas bandas `paper` con
+ * `py-section`, así que el aire lo ponen ellas (con padding aquí el hueco sería doble).
+ */
 export function SobreMi() {
   return (
-    <section id="sobre-mi" aria-labelledby="sobre-mi-titulo" className="pt-section">
+    <section id="sobre-mi" aria-labelledby="sobre-mi-titulo">
       <Container className="grid gap-10 md:grid-cols-12 md:gap-12">
         <div className="md:col-span-4">
           <h2 id="sobre-mi-titulo" className="text-heading font-bold">
