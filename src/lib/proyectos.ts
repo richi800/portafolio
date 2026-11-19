@@ -17,9 +17,10 @@ function validar(lista: Proyecto[]) {
   return lista
 }
 
-const ordenados = validar([...proyectos]).sort((a, b) => b.fecha.localeCompare(a.fecha))
+/** Proyectos publicados, en el orden de content/proyectos/index.ts. */
+const ordenados = validar([...proyectos]).filter((p) => p.publicado !== false)
 
-/** Todos los proyectos, del más reciente al más antiguo. */
+/** Todos los proyectos publicados, en el orden del registro. */
 export function getProyectos(): Proyecto[] {
   return ordenados
 }

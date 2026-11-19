@@ -5,7 +5,10 @@ import { siteUrl } from "@/lib/sitio"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const proyectos = getProyectos()
-  const ultimo = proyectos[0]?.fecha
+  const ultimo = proyectos
+    .map((p) => p.fecha)
+    .sort()
+    .at(-1)
 
   return [
     { url: siteUrl, lastModified: ultimo, changeFrequency: "monthly", priority: 1 },

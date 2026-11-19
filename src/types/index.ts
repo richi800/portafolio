@@ -9,6 +9,11 @@ export type Imagen = {
    * hacen zoom alrededor de este punto. Por defecto, el centro.
    */
   foco?: string
+  /** Tamaño real en px. Con ancho y alto, la galería muestra la imagen sin recortarla. */
+  ancho?: number
+  alto?: number
+  /** Texto visible bajo la imagen en la galería (qué muestra, en pocas palabras). */
+  leyenda?: string
 }
 
 /** Nombres de íconos disponibles para el contenido (se traducen a lucide en components/ui/Icono). */
@@ -52,8 +57,13 @@ export type Proyecto = {
   /** Si es true aparece en la sección "Proyectos destacados" del inicio. */
   destacado: boolean
   /**
-   * Fecha AAAA-MM-DD. Ordena el listado (más reciente primero) y alimenta el sitemap.
-   * Con fechas iguales se respeta el orden de content/proyectos/index.ts.
+   * false = oculto en todo el sitio (listados, detalle, destacados y sitemap), por ejemplo
+   * mientras no hay capturas. Si se omite, el proyecto se publica.
+   */
+  publicado?: boolean
+  /**
+   * Fecha de lanzamiento AAAA-MM-DD. Alimenta el sitemap. El orden del sitio lo define
+   * content/proyectos/index.ts.
    */
   fecha: string
 }

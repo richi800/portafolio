@@ -100,9 +100,11 @@ sus correcciones y vuelve a correr lint y build.
 ## Cómo agregar un proyecto nuevo
 
 1. Elige un `slug` en minúsculas con guiones, por ejemplo `clima-app`.
-2. Guarda las imágenes en `public/images/proyectos/clima-app/`:
-   - `portada.jpg` (proporción 16:10, ~1600×1000 px, menos de 300 KB)
-   - `galeria-1.jpg`, `galeria-2.jpg`... (opcionales, misma proporción)
+2. Procesa las capturas a WebP y guárdalas en `public/images/proyectos/clima-app/`:
+   - `portada.webp`: recorte 16:10, 1600×1000 px, menos de 300 KB
+   - Galería (`nombre-descriptivo.webp`): proporción original, máximo 1600 px de ancho,
+     menos de 300 KB. Antes de publicar, difumina direcciones, datos de pacientes o clientes,
+     correos, teléfonos personales, contraseñas, tokens y variables de entorno.
 3. Copia un archivo de `src/content/proyectos/` (por ejemplo `inventory-bridge.ts`) a
    `src/content/proyectos/clima-app.ts`, cambia el nombre de la constante (`climaApp`) y
    rellena los campos:
@@ -110,12 +112,17 @@ sus correcciones y vuelve a correr lint y build.
    - `caso`: `problema`, `solucion`, `funcionalidades` (lista breve) y `resultado`; se muestra
      como caso de estudio (problema → solución → stack → resultado). Solo hechos reales.
    - `tecnologias` (usa siempre el mismo nombre: "TypeScript", no "TS", para que el filtro agrupe bien)
-   - `imagenPortada` y `galeria` con `src` y `alt` descriptivo
+   - `imagenPortada` con `src` y `alt` descriptivo
+   - `galeria`: las imágenes que haya, cada una con `src`, `alt`, `leyenda` (texto visible
+     opcional) y `ancho`/`alto` en px para mostrarla sin recortar
    - `videoYoutube` (opcional): solo el ID, lo que va después de `v=` en la URL
    - `repoUrl` (omítelo si el repositorio es privado) y `demoUrl` (opcionales)
    - `destacado: true` si debe salir en el inicio
-   - `fecha` en formato `AAAA-MM-DD` (ordena el listado; con fechas iguales manda el orden de `index.ts`)
-4. Regístralo en `src/content/proyectos/index.ts`: impórtalo y agrégalo al arreglo.
+   - `publicado: false` para ocultarlo en todo el sitio (listados, detalle, destacados y
+     sitemap) mientras no esté listo
+   - `fecha` de lanzamiento en formato `AAAA-MM-DD` (se usa en el sitemap)
+4. Regístralo en `src/content/proyectos/index.ts`: impórtalo y agrégalo al arreglo. **El orden
+   de ese arreglo es el orden del sitio** (listado y destacados).
 5. `npm run build`: falla con un mensaje claro si el slug está repetido o la fecha es inválida.
    La página `/proyectos/clima-app`, el sitemap y el filtro se actualizan solos.
 6. Haz commit y push: Vercel publica automáticamente.

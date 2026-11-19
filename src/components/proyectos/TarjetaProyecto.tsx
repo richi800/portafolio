@@ -43,9 +43,11 @@ export function TarjetaProyecto({
     >
       <div
         className={cn(
-          "relative aspect-[16/10] overflow-hidden bg-line",
-          ancha && "lg:col-span-7 lg:aspect-auto lg:min-h-96",
-          ancha && invertida && "lg:order-last",
+          // El borde separa la captura del cuerpo: muchas son pantallas blancas sobre
+          // una tarjeta blanca y sin él se funden.
+          "relative aspect-[16/10] overflow-hidden border-b border-line bg-line",
+          ancha && "lg:col-span-7 lg:aspect-auto lg:min-h-96 lg:border-r lg:border-b-0",
+          ancha && invertida && "lg:order-last lg:border-r-0 lg:border-l",
         )}
       >
         <Image
@@ -59,7 +61,12 @@ export function TarjetaProyecto({
                 ? "(min-width: 1216px) 360px, (min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                 : "(min-width: 1216px) 560px, (min-width: 768px) 50vw, 100vw"
           }
-          className="object-cover transition-transform duration-700 ease-out-expo group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+          className={cn(
+            // Si la ancha recorta, que conserve la parte superior (encabezado y menú
+            // de la captura). En oscuro se atenúa un poco para que no deslumbre.
+            "object-cover object-top transition-transform dark:brightness-90",
+            "duration-700 ease-out-expo group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100",
+          )}
         />
       </div>
 

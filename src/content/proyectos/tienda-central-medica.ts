@@ -5,40 +5,47 @@ export const tiendaCentralMedica: Proyecto = {
   titulo: "Tienda en línea Central Médica",
   cliente: "Central Médica",
   resumen:
-    "Tienda en línea con Next.js integrada con Shopify: catálogo, búsqueda, filtros, carrito persistente y checkout.",
+    "Tienda de productos para ostomía con Next.js y Shopify, con un selector que guía al paciente hasta el producto compatible antes de comprar.",
   caso: {
     problema:
-      "Central Médica necesitaba vender en línea con una tienda propia: rápida en el celular, fácil de encontrar en buscadores y administrada desde Shopify.",
+      "Central Médica vende bolsas y barreras para ostomía. Muchos pacientes no saben qué bolsa o barrera necesitan, y elegir mal significa comprar un producto que no les sirve. Además, la tienda tenía que ser rápida en el celular, fácil de encontrar en buscadores y administrarse desde Shopify.",
     solucion:
-      "Construí una tienda headless con Next.js, React y TypeScript conectada a la Shopify Storefront API. Shopify se encarga de productos, pagos y pedidos; el sitio, de la experiencia de compra.",
+      "Construí una tienda headless con Next.js, React y TypeScript conectada a la Shopify Storefront API. La pieza central es el selector de productos: un asistente de 8 pasos (tipo de estoma, medida, abertura, efluente, abdomen, superficie, tono y sistema) que recomienda productos compatibles y guía al paciente antes de comprar.",
     funcionalidades: [
-      "Catálogo con búsqueda y filtros",
+      "Selector de productos en 8 pasos con recomendaciones compatibles",
+      "Búsqueda por código o medida",
+      "Filtros por producto, medida del aro y características",
+      "Precio por caja y por pieza",
+      "Orientación por WhatsApp antes de pagar",
       "Carrito persistente y checkout de Shopify",
-      "Diseño responsivo y SEO técnico",
-      "Despliegues en Vercel",
+      "Diseño responsivo, SEO técnico y despliegues en Vercel",
     ],
     resultado:
       "La tienda está en producción en centralmedica.com.mx y le doy soporte después de cada liberación.",
   },
   tecnologias: ["Next.js", "React", "TypeScript", "Shopify Storefront API", "Vercel"],
-  // TODO(Ricardo): reemplaza con capturas reales (1600×1000 px, JPG o WebP) en
-  // public/images/proyectos/tienda-central-medica/portada.jpg, galeria-1.jpg y galeria-2.jpg
   imagenPortada: {
-    src: "/images/proyectos/tienda-central-medica/portada.jpg",
-    alt: "Página de inicio de la tienda en línea de Central Médica",
+    src: "/images/proyectos/tienda-central-medica/portada.webp",
+    alt: "Página de inicio de la tienda Central Médica con categorías de bolsas y barreras para ostomía y el acceso al selector de productos",
   },
   galeria: [
     {
-      src: "/images/proyectos/tienda-central-medica/galeria-1.jpg",
-      alt: "Catálogo de productos con búsqueda y filtros",
+      src: "/images/proyectos/tienda-central-medica/selector-de-productos.webp",
+      alt: "Primer paso del selector de productos: elegir entre colostomía, ileostomía y urostomía, con una barra de progreso de 8 pasos",
+      leyenda: "Selector de productos: 8 preguntas guiadas antes de recomendar.",
+      ancho: 1289,
+      alto: 910,
     },
     {
-      src: "/images/proyectos/tienda-central-medica/galeria-2.jpg",
-      alt: "Carrito de compras antes del checkout",
+      src: "/images/proyectos/tienda-central-medica/catalogo-filtros.webp",
+      alt: "Catálogo de barreras cutáneas filtrado, con filtros por producto, medida del aro y características, y precio por caja y por pieza",
+      leyenda: "Catálogo con filtros por medida del aro y precio por caja y por pieza.",
+      ancho: 1564,
+      alto: 890,
     },
   ],
   demoUrl: "https://centralmedica.com.mx",
   destacado: true,
-  // TODO(Ricardo): confirma la fecha real de liberación (AAAA-MM-DD).
+  // TODO(Ricardo): confirma la fecha real de lanzamiento (AAAA-MM-DD).
   fecha: "2025-02-01",
 }

@@ -32,6 +32,8 @@ export const agendadoCitas: Proyecto = {
     },
   ],
   destacado: true,
+  // Oculto hasta tener capturas reales: no aparece en listados, detalle, destacados ni sitemap.
+  publicado: false,
   // TODO(Ricardo): confirma la fecha real de liberación (AAAA-MM-DD).
   fecha: "2025-02-01",
 }

@@ -97,7 +97,8 @@ export default async function PaginaProyecto({ params }: PageProps<"/proyectos/[
           )}
         </header>
 
-        <div className="relative mt-12 aspect-[16/9] overflow-hidden rounded-media border border-line bg-line shadow-lifted">
+        {/* 16:10 = proporción de la portada: así no se recorta la captura. */}
+        <div className="relative mt-12 aspect-[16/10] overflow-hidden rounded-media border border-line bg-line shadow-lifted">
           <Image
             src={proyecto.imagenPortada.src}
             alt={proyecto.imagenPortada.alt}
@@ -106,7 +107,7 @@ export default async function PaginaProyecto({ params }: PageProps<"/proyectos/[
             quality={85}
             loading="eager"
             fetchPriority="high"
-            className="object-cover"
+            className="object-cover dark:brightness-90"
           />
         </div>
 
@@ -124,11 +125,13 @@ export default async function PaginaProyecto({ params }: PageProps<"/proyectos/[
                 {t.detalle.solucion}
               </h2>
               <p className="mt-3 text-ink-muted">{proyecto.caso.solucion}</p>
-              <ul className="mt-5 space-y-2">
+              <ul className="mt-6 space-y-4">
+                {/* space-y-4: con funcionalidades de 2-3 líneas cada punto debe verse
+                    separado del siguiente; mt-1.5 centra el check en la primera línea. */}
                 {proyecto.caso.funcionalidades.map((f) => (
                   <li key={f} className="flex gap-3 text-ink">
-                    <Check aria-hidden className="mt-1 size-4 shrink-0 text-accent" />
-                    {f}
+                    <Check aria-hidden className="mt-1.5 size-4 shrink-0 text-accent" />
+                    <span>{f}</span>
                   </li>
                 ))}
               </ul>
@@ -197,6 +200,17 @@ export default async function PaginaProyecto({ params }: PageProps<"/proyectos/[
             <Galeria imagenes={proyecto.galeria} />
           </section>
         )}
+
+        {/* Cierre: tras una galería larga la página no termina en seco. */}
+        <div className="mt-16 border-t border-line pt-8 md:mt-24">
+          <Link
+            href="/proyectos"
+            className="inline-flex min-h-11 items-center gap-2 text-small font-bold text-ink-muted transition-colors hover:text-ink"
+          >
+            <ArrowLeft aria-hidden className="size-4" />
+            {t.detalle.volver}
+          </Link>
+        </div>
       </Container>
     </article>
   )
