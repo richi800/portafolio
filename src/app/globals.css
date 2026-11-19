@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+/*
+ * SISTEMA DE DISEÑO — fuente única de verdad.
+ * Todos los colores, tipografías, espaciados, radios y sombras del sitio salen de aquí.
+ * Los componentes usan solo las utilidades que generan estos tokens
+ * (bg-paper, text-ink, rounded-card, shadow-raised, py-section, text-display...).
+ */
+
+/* Modo oscuro controlado por la clase .dark que aplica next-themes en <html>. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------- Paleta (valores semánticos por tema) ---------- */
+:root {
+  --paper: #f4f6fb; /* fondo de página: blanco papel frío */
+  --surface: #ffffff; /* superficies elevadas: tarjetas, menú */
+  --ink: #121a33; /* texto principal: tinta azul marino */
+  --ink-muted: #4a5372; /* texto secundario (7:1 sobre paper) */
+  --line: #d9deea; /* bordes y divisores */
+  --accent: #2b44e0; /* cobalto: enlaces, botones, foco (7:1 sobre blanco) */
+  --accent-strong: #1f33b8; /* hover del acento */
+  --accent-ink: #ffffff; /* texto sobre el acento */
+  --signal: #f2b134; /* caléndula: solo detalles no textuales */
+  --shadow-color: 228 45% 18%;
+
+  color-scheme: light;
+}
+
+.dark {
+  --paper: #0d1328;
+  --surface: #151d3a;
+  --ink: #e9edf8;
+  --ink-muted: #a3acc8;
+  --line: #28325a;
+  --accent: #8fa0ff;
+  --accent-strong: #b4c0ff;
+  --accent-ink: #0d1328;
+  --signal: #f2b134;
+  --shadow-color: 230 60% 3%;
+
+  color-scheme: dark;
+}
+
+/* ---------- Tokens expuestos a Tailwind ---------- */
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-ink: var(--accent-ink);
+  --color-signal: var(--signal);
+
+  /* Tipografías (cargadas con next/font en layout.tsx) */
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-atkinson), ui-sans-serif, system-ui, sans-serif;
+
+  /* Sombras teñidas con la tinta de la marca, no gris genérico */
+  --shadow-raised:
+    0 1px 2px hsl(var(--shadow-color) / 0.08),
+    0 8px 24px -12px hsl(var(--shadow-color) / 0.25);
+  --shadow-lifted:
+    0 2px 4px hsl(var(--shadow-color) / 0.08),
+    0 24px 48px -20px hsl(var(--shadow-color) / 0.35);
+}
+
+@theme {
+  /* Escala tipográfica (cuarta justa, 1.333) con tamaños fluidos para títulos */
+  --text-display: clamp(3.75rem, 15vw, 10.5rem);
+  --text-display--line-height: 0.86;
+  --text-display--letter-spacing: -0.045em;
+  --text-title: clamp(2.5rem, 6vw, 4.5rem);
+  --text-title--line-height: 0.98;
+  --text-title--letter-spacing: -0.03em;
+  --text-heading: clamp(1.875rem, 3.6vw, 2.75rem);
+  --text-heading--line-height: 1.05;
+  --text-heading--letter-spacing: -0.02em;
+  --text-subheading: 1.5rem;
+  --text-subheading--line-height: 1.2;
+  --text-lead: 1.25rem;
+  --text-lead--line-height: 1.55;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.65;
+  --text-small: 0.9375rem;
+  --text-small--line-height: 1.5;
+  --text-tiny: 0.8125rem;
+  --text-tiny--line-height: 1.4;
+
+  /* Espaciados de layout (los de componente usan la escala base de Tailwind) */
+  --spacing-section: clamp(5rem, 11vw, 9rem);
+  --spacing-gutter: clamp(1.25rem, 4vw, 2.5rem);
+
+  /* Anchos */
+  --container-page: 76rem;
+  --container-prose: 40rem;
+
+  /* Radios con jerarquía: pequeño para chips, medio para controles, grande para medios */
+  --radius-chip: 0.375rem;
+  --radius-control: 0.75rem;
+  --radius-card: 1.25rem;
+  --radius-media: 1.75rem;
+
+  /* Movimiento */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /*
+   * Entrada del nombre del hero. Es CSS (no JS) para que corra antes de hidratar:
+   * el h1 nunca queda oculto esperando a React y no retrasa el LCP.
+   */
+  --animate-subir: subir 0.9s var(--ease-out-expo) both;
+  --animate-subir-tarde: subir 0.9s var(--ease-out-expo) 80ms both;
+  --animate-revelar: revelar 0.9s var(--ease-out-expo) 200ms both;
+
+  @keyframes subir {
+    from {
+      transform: translateY(100%);
+    }
+  }
+  @keyframes revelar {
+    from {
+      clip-path: inset(100% 0 0 0);
+    }
+  }
+}
+
+/* ---------- Base ---------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-delay: 0s !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    @apply bg-paper font-sans text-body text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-balance;
+    font-optical-sizing: auto;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    @apply bg-accent text-accent-ink;
+  }
+
+  /* Foco visible y consistente en todo el sitio (WCAG 2.4.7) */
+  :focus-visible {
+    @apply rounded-chip outline-2 outline-offset-4 outline-accent;
+  }
+
+  /* Los anclajes no quedan escondidos bajo el header fijo */
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+}
