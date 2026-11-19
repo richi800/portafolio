@@ -20,7 +20,7 @@ const variantes = {
     "bg-accent-ink text-accent hover:bg-accent-ink/85 focus-visible:outline-accent-ink",
   /** Contorno sobre fondo de acento. */
   invertidoContorno:
-    "border border-accent-ink/40 text-accent-ink hover:border-accent-ink hover:bg-accent-ink/10 focus-visible:outline-accent-ink",
+    "border border-accent-ink/60 text-accent-ink hover:border-accent-ink hover:bg-accent-ink/10 focus-visible:outline-accent-ink",
 } as const
 
 export type VarianteBoton = keyof typeof variantes

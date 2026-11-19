@@ -18,7 +18,7 @@ export function Galeria({ imagenes }: { imagenes: Imagen[] }) {
                 fill
                 sizes={
                   ancha
-                    ? "(min-width: 1216px) 1100px, 100vw"
+                    ? "(min-width: 1216px) 1136px, 100vw"
                     : "(min-width: 1216px) 556px, (min-width: 768px) 50vw, 100vw"
                 }
                 className="object-cover"

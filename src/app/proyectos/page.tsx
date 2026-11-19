@@ -35,7 +35,7 @@ export default function PaginaProyectos() {
         items={proyectos.map((p) => ({
           slug: p.slug,
           tecnologias: p.tecnologias,
-          tarjeta: <TarjetaProyecto proyecto={p} nivel="h2" />,
+          tarjeta: <TarjetaProyecto proyecto={p} nivel="h2" contexto="listado" />,
         }))}
       />
     </Container>

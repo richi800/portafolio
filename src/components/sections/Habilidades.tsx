@@ -1,3 +1,4 @@
+import { Icono } from "@/components/ui/Icono"
 import { Section } from "@/components/ui/Section"
 import { perfil } from "@/content/perfil"
 import { getDiccionario } from "@/i18n"
@@ -6,16 +7,14 @@ const t = getDiccionario()
 
 export function Habilidades() {
   return (
-    <Section
-      id="habilidades"
-      titulo={t.habilidades.titulo}
-      intro={t.habilidades.intro}
-      className="pt-0"
-    >
+    <Section id="habilidades" titulo={t.habilidades.titulo} intro={t.habilidades.intro}>
       <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
         {perfil.habilidades.map((grupo) => (
           <div key={grupo.categoria} className="border-t-2 border-ink pt-5">
-            <h3 className="text-subheading font-bold">{grupo.categoria}</h3>
+            <h3 className="flex items-center gap-3 text-subheading font-bold">
+              <Icono nombre={grupo.icono} className="size-6 shrink-0 text-accent" />
+              {grupo.categoria}
+            </h3>
             <ul className="mt-4">
               {grupo.items.map((item) => (
                 <li

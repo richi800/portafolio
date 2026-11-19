@@ -5,7 +5,6 @@ import { Badge } from "@/components/ui/Badge"
 import { Card } from "@/components/ui/Card"
 import { getDiccionario } from "@/i18n"
 import { cn } from "@/lib/cn"
-import { formatearFecha } from "@/lib/sitio"
 import type { Proyecto } from "@/types"
 
 const t = getDiccionario()
@@ -18,6 +17,8 @@ type Props = {
   invertida?: boolean
   /** Nivel del título según la página donde se usa. */
   nivel?: "h2" | "h3"
+  /** "listado": grilla de 3 columnas de /proyectos (imágenes más pequeñas). */
+  contexto?: "inicio" | "listado"
 }
 
 /**
@@ -29,6 +30,7 @@ export function TarjetaProyecto({
   formato = "normal",
   invertida = false,
   nivel = "h3",
+  contexto = "inicio",
 }: Props) {
   const Titulo = nivel
   const ancha = formato === "ancha"
@@ -53,7 +55,9 @@ export function TarjetaProyecto({
           sizes={
             ancha
               ? "(min-width: 1216px) 700px, (min-width: 1024px) 58vw, 100vw"
-              : "(min-width: 1216px) 560px, (min-width: 768px) 50vw, 100vw"
+              : contexto === "listado"
+                ? "(min-width: 1216px) 360px, (min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                : "(min-width: 1216px) 560px, (min-width: 768px) 50vw, 100vw"
           }
           className="object-cover transition-transform duration-700 ease-out-expo group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
         />
@@ -65,9 +69,9 @@ export function TarjetaProyecto({
           ancha && "lg:col-span-5 lg:justify-center lg:p-10",
         )}
       >
-        <p className="text-tiny text-ink-muted">
-          <time dateTime={proyecto.fecha}>{formatearFecha(proyecto.fecha)}</time>
-        </p>
+        {proyecto.cliente && (
+          <p className="text-tiny font-bold text-ink-muted">{proyecto.cliente}</p>
+        )}
         <Titulo
           className={cn("font-bold text-ink", ancha ? "text-heading" : "text-subheading")}
         >

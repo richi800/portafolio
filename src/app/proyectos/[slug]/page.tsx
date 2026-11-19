@@ -1,4 +1,4 @@
-import { ArrowLeft, ExternalLink } from "lucide-react"
+import { ArrowLeft, Check, ExternalLink, MessageCircle } from "lucide-react"
 import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
@@ -12,7 +12,7 @@ import { Container } from "@/components/ui/Container"
 import { IconoGithub } from "@/components/ui/IconosMarca"
 import { getDiccionario } from "@/i18n"
 import { getProyecto, getProyectos } from "@/lib/proyectos"
-import { formatearFecha } from "@/lib/sitio"
+import { enlaceWhatsapp } from "@/lib/contacto"
 
 const t = getDiccionario()
 
@@ -38,7 +38,6 @@ export async function generateMetadata({
       title: proyecto.titulo,
       description: proyecto.resumen,
       url: `/proyectos/${slug}`,
-      publishedTime: proyecto.fecha,
       images: [imagen],
     },
     twitter: {
@@ -54,8 +53,6 @@ export default async function PaginaProyecto({ params }: PageProps<"/proyectos/[
   const { slug } = await params
   const proyecto = getProyecto(slug)
   if (!proyecto) notFound()
-
-  const parrafos = proyecto.descripcion.split(/\n\s*\n/).filter(Boolean)
 
   return (
     <article className="pt-10 pb-section md:pt-16">
@@ -105,7 +102,7 @@ export default async function PaginaProyecto({ params }: PageProps<"/proyectos/[
             src={proyecto.imagenPortada.src}
             alt={proyecto.imagenPortada.alt}
             fill
-            sizes="(min-width: 1216px) 1140px, 100vw"
+            sizes="(min-width: 1216px) 1136px, 100vw"
             quality={85}
             loading="eager"
             fetchPriority="high"
@@ -114,38 +111,73 @@ export default async function PaginaProyecto({ params }: PageProps<"/proyectos/[
         </div>
 
         <div className="mt-16 grid gap-12 md:grid-cols-12">
-          <div className="max-w-prose space-y-5 md:col-span-8">
-            {parrafos.map((p, i) => (
-              <p key={i} className={i === 0 ? "text-lead text-ink" : "text-ink-muted"}>
-                {p}
-              </p>
-            ))}
+          <div className="max-w-prose space-y-12 md:col-span-8">
+            <section aria-labelledby="problema-titulo">
+              <h2 id="problema-titulo" className="text-subheading font-bold">
+                {t.detalle.problema}
+              </h2>
+              <p className="mt-3 text-lead text-ink">{proyecto.caso.problema}</p>
+            </section>
+
+            <section aria-labelledby="solucion-titulo">
+              <h2 id="solucion-titulo" className="text-subheading font-bold">
+                {t.detalle.solucion}
+              </h2>
+              <p className="mt-3 text-ink-muted">{proyecto.caso.solucion}</p>
+              <ul className="mt-5 space-y-2">
+                {proyecto.caso.funcionalidades.map((f) => (
+                  <li key={f} className="flex gap-3 text-ink">
+                    <Check aria-hidden className="mt-1 size-4 shrink-0 text-accent" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section aria-labelledby="stack-titulo">
+              <h2 id="stack-titulo" className="text-subheading font-bold">
+                {t.detalle.stack}
+              </h2>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {proyecto.tecnologias.map((tec) => (
+                  <li key={tec}>
+                    <Badge>{tec}</Badge>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section aria-labelledby="resultado-titulo">
+              <h2 id="resultado-titulo" className="text-subheading font-bold">
+                {t.detalle.resultado}
+              </h2>
+              <p className="mt-3 text-ink-muted">{proyecto.caso.resultado}</p>
+            </section>
           </div>
 
-          <dl className="space-y-8 md:col-span-4 md:border-l md:border-line md:pl-8">
+          <aside className="space-y-8 md:col-span-4 md:border-l md:border-line md:pl-8">
+            {proyecto.cliente && (
+              <dl>
+                <dt className="text-tiny font-bold text-ink-muted">
+                  {t.detalle.cliente}
+                </dt>
+                <dd className="mt-1 font-bold text-ink">{proyecto.cliente}</dd>
+              </dl>
+            )}
             <div>
-              <dt className="text-tiny font-bold text-ink-muted">
-                {t.detalle.publicado}
-              </dt>
-              <dd className="mt-2">
-                <time dateTime={proyecto.fecha}>{formatearFecha(proyecto.fecha)}</time>
-              </dd>
+              <p className="font-display text-subheading font-bold">
+                {t.detalle.cotizar}
+              </p>
+              <Button
+                href={enlaceWhatsapp}
+                externo
+                icono={<MessageCircle aria-hidden />}
+                className="mt-4"
+              >
+                {t.hero.cotizar}
+              </Button>
             </div>
-            <div>
-              <dt className="text-tiny font-bold text-ink-muted">
-                {t.detalle.tecnologias}
-              </dt>
-              <dd className="mt-3">
-                <ul className="flex flex-wrap gap-2">
-                  {proyecto.tecnologias.map((tec) => (
-                    <li key={tec}>
-                      <Badge>{tec}</Badge>
-                    </li>
-                  ))}
-                </ul>
-              </dd>
-            </div>
-          </dl>
+          </aside>
         </div>
 
         {proyecto.videoYoutube && (

@@ -25,13 +25,15 @@ export default function OpenGraphImage() {
         <div
           style={{ width: 20, height: 20, borderRadius: 999, background: "#f2b134" }}
         />
-        <div style={{ fontSize: 30, color: "#4a5372" }}>{perfil.titulo}</div>
+        <div style={{ fontSize: 30, color: "#4a5372" }}>
+          {`${perfil.titulo} · ${perfil.disponibilidad}`}
+        </div>
       </div>
       <div
         style={{
           display: "flex",
           flexDirection: "column",
-          fontSize: 150,
+          fontSize: 124,
           fontWeight: 800,
           lineHeight: 0.9,
           letterSpacing: "-0.04em",

@@ -30,7 +30,7 @@ const texto = Atkinson_Hyperlegible_Next({
 })
 
 const t = getDiccionario()
-const tituloSitio = `${perfil.nombre}, ${perfil.titulo.toLowerCase()}`
+const tituloSitio = t.meta.titulo
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
-    locale: "es_ES",
+    locale: "es_MX",
     url: "/",
     siteName: perfil.nombre,
     title: tituloSitio,

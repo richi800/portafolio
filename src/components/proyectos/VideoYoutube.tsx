@@ -37,7 +37,7 @@ export function VideoYoutube({ id, titulo }: { id: string; titulo: string }) {
             src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
             alt=""
             fill
-            sizes="(min-width: 1216px) 1100px, 100vw"
+            sizes="(min-width: 1216px) 1136px, 100vw"
             className="object-cover opacity-80 transition-opacity duration-300 group-hover:opacity-100"
           />
           <span className="relative flex size-20 items-center justify-center rounded-full bg-accent text-accent-ink shadow-lifted transition-transform duration-300 ease-out-expo group-hover:scale-110 motion-reduce:group-hover:scale-100">

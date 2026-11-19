@@ -15,11 +15,11 @@ import { ThemeToggle } from "./ThemeToggle"
 const t = getDiccionario()
 
 function esActual(pathname: string, href: string) {
-  return href === "/proyectos" && pathname.startsWith("/proyectos")
+  return href === "/#proyectos" && pathname.startsWith("/proyectos")
 }
 
 const claseEnlace =
-  "relative rounded-control px-3 py-2 text-small font-bold text-ink-muted transition-colors hover:text-ink aria-[current=page]:text-ink"
+  "relative inline-flex min-h-11 items-center rounded-control px-3 text-small font-bold text-ink-muted transition-colors hover:text-ink aria-[current=page]:text-ink"
 
 export function Nav() {
   const pathname = usePathname()
@@ -37,7 +37,7 @@ export function Nav() {
   return (
     <>
       {/* Escritorio */}
-      <nav aria-label={t.nav.principal} className="hidden items-center gap-1 md:flex">
+      <nav aria-label={t.nav.principal} className="hidden items-center gap-1 lg:flex">
         <ul className="flex items-center gap-1">
           {enlacesNav.map((e) => (
             <li key={e.href}>
@@ -50,7 +50,7 @@ export function Nav() {
                 {esActual(pathname, e.href) && (
                   <span
                     aria-hidden
-                    className="absolute inset-x-3 -bottom-0.5 h-0.5 rounded-full bg-accent dark:bg-signal"
+                    className="absolute inset-x-3 bottom-1 h-0.5 rounded-full bg-accent dark:bg-signal"
                   />
                 )}
               </Link>
@@ -61,7 +61,7 @@ export function Nav() {
       </nav>
 
       {/* Móvil */}
-      <div className="flex items-center gap-1 md:hidden">
+      <div className="flex items-center gap-1 lg:hidden">
         <ThemeToggle />
         <button
           type="button"
@@ -88,7 +88,7 @@ export function Nav() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute inset-x-0 top-full border-b border-line bg-paper shadow-lifted md:hidden"
+            className="absolute inset-x-0 top-full border-b border-line bg-paper shadow-lifted lg:hidden"
           >
             <ul className="mx-auto flex max-w-page flex-col px-gutter py-4">
               {enlacesNav.map((e) => (

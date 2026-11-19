@@ -23,17 +23,19 @@ export function Footer() {
               <span className="sr-only"> {t.nav.nuevaPestana}</span>
             </a>
           </li>
-          <li>
-            <a
-              href={perfil.redes.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-11 items-center underline-offset-4 hover:text-ink hover:underline"
-            >
-              LinkedIn
-              <span className="sr-only"> {t.nav.nuevaPestana}</span>
-            </a>
-          </li>
+          {perfil.redes.linkedin && (
+            <li>
+              <a
+                href={perfil.redes.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center underline-offset-4 hover:text-ink hover:underline"
+              >
+                LinkedIn
+                <span className="sr-only"> {t.nav.nuevaPestana}</span>
+              </a>
+            </li>
+          )}
           <li>
             <a
               href={`mailto:${perfil.correo}`}

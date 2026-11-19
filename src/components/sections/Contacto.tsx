@@ -1,10 +1,11 @@
-import { Download } from "lucide-react"
+import { Download, Mail, MessageCircle } from "lucide-react"
 
 import { Button } from "@/components/ui/Button"
 import { Container } from "@/components/ui/Container"
 import { IconoGithub, IconoLinkedin } from "@/components/ui/IconosMarca"
 import { perfil } from "@/content/perfil"
 import { getDiccionario } from "@/i18n"
+import { enlaceWhatsapp } from "@/lib/contacto"
 
 const t = getDiccionario()
 
@@ -18,14 +19,26 @@ export function Contacto() {
           </h2>
           <p className="mt-5 max-w-prose text-lead opacity-90">{t.contacto.intro}</p>
 
-          <a
-            href={`mailto:${perfil.correo}`}
-            className="mt-10 inline-block font-display text-heading font-bold break-all underline decoration-2 underline-offset-[0.2em] transition-[text-decoration-color] hover:decoration-signal focus-visible:outline-accent-ink"
-          >
-            {perfil.correo}
-          </a>
-
           <ul className="mt-10 flex flex-wrap gap-3">
+            <li>
+              <Button
+                href={enlaceWhatsapp}
+                externo
+                variante="invertido"
+                icono={<MessageCircle aria-hidden />}
+              >
+                {t.contacto.whatsapp}
+              </Button>
+            </li>
+            <li>
+              <Button
+                href={`mailto:${perfil.correo}`}
+                variante="invertidoContorno"
+                icono={<Mail aria-hidden />}
+              >
+                {t.contacto.correo}
+              </Button>
+            </li>
             <li>
               <Button
                 href={perfil.redes.github}
@@ -36,27 +49,31 @@ export function Contacto() {
                 {t.contacto.github}
               </Button>
             </li>
-            <li>
-              <Button
-                href={perfil.redes.linkedin}
-                externo
-                variante="invertidoContorno"
-                icono={<IconoLinkedin />}
-              >
-                {t.contacto.linkedin}
-              </Button>
-            </li>
+            {perfil.redes.linkedin && (
+              <li>
+                <Button
+                  href={perfil.redes.linkedin}
+                  externo
+                  variante="invertidoContorno"
+                  icono={<IconoLinkedin />}
+                >
+                  {t.contacto.linkedin}
+                </Button>
+              </li>
+            )}
             <li>
               <Button
                 href={perfil.cv}
                 descargar
-                variante="invertido"
+                variante="invertidoContorno"
                 icono={<Download aria-hidden />}
               >
                 {t.contacto.cv}
               </Button>
             </li>
           </ul>
+
+          <p className="mt-8 text-small break-all opacity-90">{perfil.correo}</p>
         </div>
       </Container>
     </section>

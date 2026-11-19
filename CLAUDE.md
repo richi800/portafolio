@@ -35,7 +35,8 @@ errores ni advertencias.
 ```
 src/
   app/                      páginas (App Router)
-    page.tsx                inicio: Hero, Sobre mí, Proyectos destacados, Habilidades, Contacto
+    page.tsx                inicio: Hero → Datos rápidos → Proyectos destacados → Servicios →
+                            Cómo trabajo → Trayectoria → Sobre mí → Habilidades → Contacto
     proyectos/page.tsx      listado filtrable por tecnología
     proyectos/[slug]/       detalle de proyecto (generateStaticParams → estático)
     not-found.tsx           404 personalizada
@@ -43,16 +44,21 @@ src/
     globals.css             SISTEMA DE DISEÑO (tokens)
     sitemap.ts, robots.ts, icon.svg, apple-icon.png, opengraph-image.tsx, twitter-image.tsx
   components/
-    ui/                     base reutilizable: Button, Card, Badge, Section, Container, IconosMarca
+    ui/                     base reutilizable: Button, Card, Badge, Section (prop tono), Container,
+                            Icono (íconos por nombre), IconosMarca, FotoEncuadrada (foto con foco/zoom)
     layout/                 Header, Nav (menú + móvil), ThemeToggle, Footer, Providers
-    sections/               Hero, HeroTitulo, SobreMi, ProyectosDestacados, Habilidades, Contacto
+    sections/               Hero, HeroTitulo, DatosRapidos, ProyectosDestacados, Servicios,
+                            ComoTrabajo, Trayectoria, SobreMi, Habilidades, Contacto
     proyectos/              TarjetaProyecto, ListadoProyectos, Galeria, VideoYoutube
   content/
-    perfil.ts               datos personales, redes, habilidades
+    perfil.ts               datos personales, foto, redes, WhatsApp, datos rápidos, habilidades
+    servicios.ts            tarjetas de Servicios
+    metodo.ts               puntos de "Cómo trabajo"
+    trayectoria.ts          línea de tiempo (trabajo y educación)
     proyectos/              un archivo .ts por proyecto + index.ts (registro)
   i18n/                     textos de interfaz (es.ts) y configuración de idiomas
-  lib/                      cn, lectura de proyectos, URL del sitio y formato de fechas
-  types/                    tipos Proyecto, Perfil, Imagen
+  lib/                      cn, lectura de proyectos, URL del sitio, enlace de WhatsApp (contacto.ts)
+  types/                    tipos Proyecto, Perfil, Imagen, Servicio, PuntoMetodo, EtapaTrayectoria
 public/
   images/perfil/            foto de perfil
   images/proyectos/<slug>/  portada y capturas de cada proyecto
@@ -79,6 +85,10 @@ public/
   deprecado en Next 16).
 - Accesibilidad WCAG AA: contraste, foco visible, teclado, HTML semántico, un solo `h1`.
 - Textos de interfaz en `src/i18n/es.ts`, nunca escritos directo en los componentes.
+- Contenido real: no inventar cifras, clientes ni logros. El número de WhatsApp nunca se muestra
+  escrito en la página (solo el botón, vía `enlaceWhatsapp` de `lib/contacto.ts`).
+- Fotos de personas con `FotoEncuadrada`: el punto de interés va en `foco` (por ejemplo
+  `"52% 46%"`) y el zoom con una clase `scale-*`; recuerda multiplicar `sizes` por el zoom.
 
 ## Regla obligatoria: revisión de diseño
 
@@ -93,16 +103,18 @@ sus correcciones y vuelve a correr lint y build.
 2. Guarda las imágenes en `public/images/proyectos/clima-app/`:
    - `portada.jpg` (proporción 16:10, ~1600×1000 px, menos de 300 KB)
    - `galeria-1.jpg`, `galeria-2.jpg`... (opcionales, misma proporción)
-3. Copia un archivo de `src/content/proyectos/` (por ejemplo `panel-finanzas.ts`) a
+3. Copia un archivo de `src/content/proyectos/` (por ejemplo `inventory-bridge.ts`) a
    `src/content/proyectos/clima-app.ts`, cambia el nombre de la constante (`climaApp`) y
    rellena los campos:
-   - `slug`, `titulo`, `resumen` (1-2 frases), `descripcion` (párrafos separados por línea en blanco)
+   - `slug`, `titulo`, `cliente` (opcional), `resumen` (1-2 frases)
+   - `caso`: `problema`, `solucion`, `funcionalidades` (lista breve) y `resultado`; se muestra
+     como caso de estudio (problema → solución → stack → resultado). Solo hechos reales.
    - `tecnologias` (usa siempre el mismo nombre: "TypeScript", no "TS", para que el filtro agrupe bien)
    - `imagenPortada` y `galeria` con `src` y `alt` descriptivo
    - `videoYoutube` (opcional): solo el ID, lo que va después de `v=` en la URL
-   - `repoUrl` y `demoUrl` (opcionales)
+   - `repoUrl` (omítelo si el repositorio es privado) y `demoUrl` (opcionales)
    - `destacado: true` si debe salir en el inicio
-   - `fecha` en formato `AAAA-MM-DD` (ordena el listado)
+   - `fecha` en formato `AAAA-MM-DD` (ordena el listado; con fechas iguales manda el orden de `index.ts`)
 4. Regístralo en `src/content/proyectos/index.ts`: impórtalo y agrégalo al arreglo.
 5. `npm run build`: falla con un mensaje claro si el slug está repetido o la fecha es inválida.
    La página `/proyectos/clima-app`, el sitemap y el filtro se actualizan solos.

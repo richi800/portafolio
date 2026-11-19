@@ -22,9 +22,9 @@ export function Header() {
           <Link
             href="/"
             className="inline-flex min-h-11 items-center font-display text-lead font-extrabold tracking-tight text-ink"
-            aria-label={`${perfil.nombre}, ${t.nav.inicio}`}
+            aria-label={`${perfil.nombreCorto}, ${t.nav.inicio}`}
           >
-            {perfil.nombre}
+            {perfil.nombreCorto}
             <span aria-hidden className="text-signal">
               .
             </span>

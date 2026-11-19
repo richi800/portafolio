@@ -10,6 +10,8 @@ type SectionProps = {
   intro?: ReactNode
   /** Contenido alineado a la derecha del título (por ejemplo un enlace "ver todos"). */
   accion?: ReactNode
+  /** "surface": banda elevada con bordes, para alternar el ritmo entre secciones. */
+  tono?: "paper" | "surface"
   children: ReactNode
 } & Omit<ComponentProps<"section">, "id" | "children">
 
@@ -19,6 +21,7 @@ export function Section({
   titulo,
   intro,
   accion,
+  tono = "paper",
   children,
   className,
   ...rest
@@ -28,7 +31,11 @@ export function Section({
     <section
       id={id}
       aria-labelledby={tituloId}
-      className={cn("py-section", className)}
+      className={cn(
+        "py-section",
+        tono === "surface" && "border-y border-line bg-surface",
+        className,
+      )}
       {...rest}
     >
       <Container>
